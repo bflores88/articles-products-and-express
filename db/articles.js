@@ -9,6 +9,16 @@ function createURLTitle(title) {
   return newTitle;
 }
 
+function checkArticleExists(inputTitle){
+  for(let i=0; i<articles.length; i++){
+    let current = articles[i];
+    if(current.title === inputTitle){
+      return true
+    }
+  }
+  return false;
+}
+
 function findArticleByTitle(inputTitle) {
   let article = {};
   for(let i=0; i<articles.length; i++){
@@ -17,6 +27,11 @@ function findArticleByTitle(inputTitle) {
       article = current
     }
   }
+
+  if(article === {}){
+    return false;
+  }
+
   return article;
 }
 
@@ -50,6 +65,8 @@ function deleteArticle (inputTitle) {
 
 module.exports = {
   all: all,
+  checkArticleExists: checkArticleExists,
+  findArticleByTitle: findArticleByTitle,
   addArticle: addArticle,
   editArticle: editArticle,
   deleteArticle: deleteArticle
