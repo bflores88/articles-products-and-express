@@ -1,19 +1,67 @@
 const express = require('express');
 const router = express.Router();
-
-let productArray = [];
-let lastID = 0;
+const products = require('../db/products.js')
 
 
 router.route('/')
+  .get((req, res) => {
+    res.send(products.all());
+    return;
+  })
   .post((req, res) => {
     if(!checkInputKeys(req.body)){
       res.send(`{ "success": false }`);
-      return
+      res.redirect(400, '/products/new')
+      return;
     }
 
+    products.addProduct(req.body);
 
+    res.send(`{ "success": true }`);
+    // res.redirect('/products');
+    return;
+  })
+  .put((req, res) => {
+    if(!checkForID(req.body)){
+      console.log('failedID')
+      res.send(`{ "success": false }`);
+      // res.redirect(400, '/products/:id')
+      return;
+    }
 
+    if(!products.checkID){
+      res.send(`{ "success": false }`);
+      console.log('failedprodcutID')
+      // res.redirect(400, '/products/:id')
+      return;
+    }
+    products.editProduct(req.body);
+
+  
+    // console.log(products.all());
+
+    res.send(`{ "success": true }`);
+    return;
+  })
+  .delete((req, res) => {
+    if(!checkForID(req.body)){
+      console.log('failedID')
+      res.send(`{ "success": false }`);
+      // res.redirect(400, '/products/:id')
+      return;
+    }
+
+    if(!products.checkID){
+      res.send(`{ "success": false }`);
+      console.log('failedprodcutID')
+      // res.redirect(400, '/products/:id')
+      return;
+    }
+
+    products.deleteProduct(req.body.id);
+
+    res.send(`{ "success": true }`);
+    return;
   })
 
 function checkInputKeys (responseObject) {
@@ -23,22 +71,13 @@ function checkInputKeys (responseObject) {
   return false;
 }
 
-function createID () {
-  let newID = lastID + 1;
-  lastID = newID;
-  return newID;
+function checkForID (responseObject) {
+  if(responseObject.hasOwnProperty('id')){
+    return true;
+  }
+  return false;
 }
 
-function createProductData (responseObject) {
-  let newProduct = {};
-  newProduct.id = createID();
-  newProduct.name = responseObject.name;
-  newProduct.price = responseObject.price;
-  newProduct.inventory = responseObject.number
-
-  productArray.push(newProduct);
-  return;
-}
 
 
 
