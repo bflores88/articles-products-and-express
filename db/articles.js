@@ -16,19 +16,19 @@ function createURLTitle(title) {
 //   return true;
 // }
 
-// function findProductByID(inputID) {
-//   let product = {};
-//   for(let i=0; i<products.length; i++){
-//     let current = products[i];
-//     if(current.id === Number(inputID)){
-//       product = current
-//     }
-//   }
-//   return product;
-// }
+function findArticleByTitle(inputTitle) {
+  let article = {};
+  for(let i=0; i<articles.length; i++){
+    let current = articles[i];
+    if(current.title === inputTitle){
+      article = current
+    }
+  }
+  return article;
+}
 
-function article(responseObject) {
-  let newProduct = {};
+function addArticle(responseObject) {
+  let newArticle = {};
   newArticle.urlTitle = createURLTitle();
   newArticle.title = responseObject.title;
   newArticle.body = responseObject.body;
@@ -38,11 +38,11 @@ function article(responseObject) {
   return;
 }
 
-function editProduct(responseObject) {
-  let productEdit = findProductByID(responseObject.id);
+function editArticle(responseObject) {
+  let articleEdit = findArticleByTitle(responseObject.id);
 
   for (let key in responseObject) {
-    productEdit[key] = responseObject[key];
+    articleEdit[key] = responseObject[key];
   }
 
   return;
@@ -57,8 +57,8 @@ function deleteProduct (id) {
 
 module.exports = {
   all: all,
-  addProduct: addProduct,
+  addArticle: addArticle,
   checkID: checkID,
-  editProduct: editProduct,
+  editArticle: editArticle,
   deleteProduct: deleteProduct
 };
