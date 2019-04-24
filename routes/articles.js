@@ -1,24 +1,24 @@
 const express = require('express');
 const router = express.Router();
-const products = require('../db/products.js')
+const articles = require('../db/articles.js')
 
 
 router.route('/')
   .get((req, res) => {
-    res.send(products.all());
+    res.send(articles.all());
     return;
   })
   .post((req, res) => {
     if(!checkInputKeys(req.body)){
       res.send(`{ "success": false }`);
-      res.redirect(400, '/products/new')
+      // res.redirect(400, '/articles/new')
       return;
     }
 
-    // products.addProduct(req.body);
+    articles.addArticle(req.body);
 
     res.send(`{ "success": true }`);
-    // res.redirect('/products');
+    // res.redirect('/articles');
     return;
   })
   .put((req, res) => {
@@ -65,7 +65,7 @@ router.route('/')
   })
 
 function checkInputKeys (responseObject) {
-  if(responseObject.hasOwnProperty('name') && responseObject.hasOwnProperty('price') && responseObject.hasOwnProperty('inventory')){
+  if(responseObject.hasOwnProperty('title') && responseObject.hasOwnProperty('body') && responseObject.hasOwnProperty('author')){
     return true;
   }
   return false;

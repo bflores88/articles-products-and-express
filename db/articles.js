@@ -9,13 +9,6 @@ function createURLTitle(title) {
   return newTitle;
 }
 
-// function checkID(num) {
-//   if (validIDs.indexOf(num) === -1) {
-//     return false;
-//   }
-//   return true;
-// }
-
 function findArticleByTitle(inputTitle) {
   let article = {};
   for(let i=0; i<articles.length; i++){
@@ -29,7 +22,7 @@ function findArticleByTitle(inputTitle) {
 
 function addArticle(responseObject) {
   let newArticle = {};
-  newArticle.urlTitle = createURLTitle();
+  newArticle.urlTitle = createURLTitle(responseObject.title);
   newArticle.title = responseObject.title;
   newArticle.body = responseObject.body;
   newArticle.author = responseObject.author;
@@ -39,7 +32,7 @@ function addArticle(responseObject) {
 }
 
 function editArticle(responseObject) {
-  let articleEdit = findArticleByTitle(responseObject.id);
+  let articleEdit = findArticleByTitle(responseObject.title);
 
   for (let key in responseObject) {
     articleEdit[key] = responseObject[key];
@@ -48,17 +41,16 @@ function editArticle(responseObject) {
   return;
 }
 
-function deleteProduct (id) {
-  let productDelete = findProductByID(id);
-  let productDeleteIndex = products.indexOf(productDelete);
-  products.splice(productDeleteIndex, 1);
+function deleteArticle (inputTitle) {
+  let articleDelete = findProductByID(inputTitle);
+  let deleteIndex = articles.indexOf(articleDelete);
+  articles.splice(deleteIndex, 1);
   return;
 }
 
 module.exports = {
   all: all,
   addArticle: addArticle,
-  checkID: checkID,
   editArticle: editArticle,
-  deleteProduct: deleteProduct
+  deleteArticle: deleteArticle
 };
