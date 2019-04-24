@@ -57,7 +57,7 @@ function editArticle(responseObject) {
 }
 
 function deleteArticle (inputTitle) {
-  let articleDelete = findProductByID(inputTitle);
+  let articleDelete = findArticleByTitle(inputTitle);
   let deleteIndex = articles.indexOf(articleDelete);
   articles.splice(deleteIndex, 1);
   return;

@@ -51,21 +51,14 @@ router
     return;
   })
   .delete((req, res) => {
-    if (!checkForID(req.body)) {
-      console.log('failedID');
+    if (!articles.findArticleByTitle) {
       res.send(`{ "success": false }`);
+      console.log('title does not exist!');
       // res.redirect(400, '/products/:id')
       return;
     }
 
-    if (!products.checkID) {
-      res.send(`{ "success": false }`);
-      console.log('failedprodcutID');
-      // res.redirect(400, '/products/:id')
-      return;
-    }
-
-    products.deleteProduct(req.body.id);
+    articles.deleteArticle(req.body.title);
 
     res.send(`{ "success": true }`);
     return;
