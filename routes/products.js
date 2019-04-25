@@ -6,9 +6,12 @@ const products = require('../db/products.js');
 router
   .route('/')
   .get((req, res) => {
-    res.send(products.all());
+    
 
-    // res.render('layouts/products', products.all())
+    let context = {products: products.all()}
+
+    res.status(200);
+    res.render('layouts/products/index', context)
     return;
   })
   .post((req, res) => {
@@ -27,6 +30,14 @@ router
 
 router
   .route('/:id')
+  .get((req, res) => {
+
+    let context = products.findProductByID(req.params.id)
+
+    res.status(200);
+    res.render('layouts/products/product', context)
+    return;
+  })
   .put((req, res) => {
     console.log(req.params.id);
     if (products.checkID(Number(req.params.id)) === false) {

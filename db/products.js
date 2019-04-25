@@ -61,6 +61,7 @@ function deleteProduct (id) {
 
 module.exports = {
   all: all,
+  findProductByID: findProductByID,
   addProduct: addProduct,
   checkID: checkID,
   editProduct: editProduct,
