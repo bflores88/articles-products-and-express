@@ -1,0 +1,19 @@
+ {{#each items}}
+  <div>
+      <h1>{{name}}</h1>
+      <p>Price:&nbsp<span>{{price}}</span></p>
+      <p>Inventory:&nbsp<span>{{inventory}}</span></p>
+  </div>
+  {{/each}}
+ 
+  <script>
+    Handlebars.registerHelper('each', function(context, options){
+    let ret = '';
+
+    for(let i=0; i< context.length; i++){
+      ret = ret + options.fn(context[i]);
+    }
+
+    return ret;
+  })
+  </script>

@@ -42,8 +42,8 @@ function addProduct(responseObject) {
   return;
 }
 
-function editProduct(responseObject) {
-  let productEdit = findProductByID(responseObject.id);
+function editProduct(id, responseObject) {
+  let productEdit = findProductByID(id);
 
   for (let key in responseObject) {
     productEdit[key] = responseObject[key];
