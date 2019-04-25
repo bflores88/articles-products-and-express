@@ -1,4 +1,4 @@
-let articles = [];
+const articles = [];
 
 function all() {
   return articles;
