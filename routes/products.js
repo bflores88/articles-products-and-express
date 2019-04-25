@@ -6,67 +6,81 @@ const products = require('../db/products.js');
 router
   .route('/')
   .get((req, res) => {
-    
-
-    let context = {products: products.all()}
+    let context = { products: products.all() };
 
     res.status(200);
-    res.render('layouts/products/index', context)
+    res.render('layouts/products/index', context);
     return;
   })
   .post((req, res) => {
     if (!checkInputKeys(req.body)) {
-      res.send(`{ "success": false }`);
-      res.redirect(400, '/products/new');
+      res.status(400);
+      res.render('layouts/products/new');
       return;
     }
 
     products.addProduct(req.body);
 
-    res.send(`{ "success": true }`);
-    // res.render('/layouts/products');
+    let context = { products: products.all() };
+
+    res.status(200);
+    res.render('layouts/products/index', context);
     return;
   });
+
+router.route('/new')
+.get((req, res) => {
+
+  res.status(200);
+  res.render('layouts/products/new')
+})
 
 router
   .route('/:id')
   .get((req, res) => {
-
-    let context = products.findProductByID(req.params.id)
+    let context = products.findProductByID(req.params.id);
 
     res.status(200);
-    res.render('layouts/products/product', context)
+    res.render('layouts/products/product', context);
     return;
   })
   .put((req, res) => {
-    console.log(req.params.id);
     if (products.checkID(Number(req.params.id)) === false) {
-      res.send(`{ "success": false }`);
-      console.log('failedprodcutID');
-      // res.redirect(400, '/products/:id')
+      res.status(400);
+      res.render('layouts/products/edit');
       return;
     }
 
     products.editProduct(req.params.id, req.body);
 
-    res.send(`{ "success": true }`);
+    let context = products.findProductByID(req.params.id);
+
+    res.status(200);
+    res.render('layouts/products/product', context);
     return;
   })
   .delete((req, res) => {
-    console.log(req.params.id)
-
-    if (!products.checkID(req.params.id)) {
-      res.send(`{ "success": false }`);
-      console.log('failedProductID');
-      // res.redirect(400, '/products/:id')
+    if (products.checkID(req.params.id)) {
+      res.status(200);
+      res.render('layouts/products/new');
       return;
     }
 
     products.deleteProduct(req.params.id);
 
-    res.send(`{ "success": true }`);
+    let context = { products: products.all() };
+
+    res.status(200);
+    res.render('layouts/products/index', context);
     return;
   });
+
+router.route('/:id/edit').get((req, res) => {
+  let context = products.findProductByID(req.params.id);
+
+  res.status(200);
+  res.render('layouts/products/edit', context);
+});
 
 function checkInputKeys(responseObject) {
   if (
@@ -74,13 +88,6 @@ function checkInputKeys(responseObject) {
     responseObject.hasOwnProperty('price') &&
     responseObject.hasOwnProperty('inventory')
   ) {
-    return true;
-  }
-  return false;
-}
-
-function checkForID(responseObject) {
-  if (responseObject.hasOwnProperty('id')) {
     return true;
   }
   return false;

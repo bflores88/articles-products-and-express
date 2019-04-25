@@ -5,7 +5,7 @@ function all() {
 }
 
 function createURLTitle(title) {
-  let newTitle = title.split(' ').join('%');
+  let newTitle = encodeURIComponent(title);
   return newTitle;
 }
 
@@ -19,11 +19,11 @@ function checkArticleExists(inputTitle){
   return false;
 }
 
-function findArticleByTitle(inputURLTitle) {
+function findArticleByTitle(inputTitle) {
   let article = {};
   for(let i=0; i<articles.length; i++){
     let current = articles[i];
-    if(current.urlTitle === inputURLTitle){
+    if(current.title === inputTitle){
       article = current
     }
   }
@@ -53,7 +53,10 @@ function editArticle(title, responseObject) {
     articleEdit[key] = responseObject[key];
   }
 
-  return;
+  let newURLTitle = createURLTitle(responseObject.title);
+  articleEdit.urlTitle = newURLTitle;
+
+  return articleEdit;
 }
 
 function deleteArticle (inputURLTitle) {

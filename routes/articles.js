@@ -5,7 +5,11 @@ const articles = require('../db/articles.js');
 router
   .route('/')
   .get((req, res) => {
-    res.send(articles.all());
+
+    let context = {article: articles.all()};
+
+    res.status(200);
+    res.render('layouts/articles/index', context);
     return;
   })
   .post((req, res) => {
@@ -29,28 +33,40 @@ router
     return;
   });
 
+router.route('/new')
+  .get((req, res) => {
+
+    res.status(200);
+    res.render('layouts/articles/new');
+    return;
+  })
+
 router
   .route('/:title')
+  .get((req, res) => {
+
+    let context = articles.findArticleByTitle(req.params.title);
+
+    res.render('layouts/articles/article', context)
+    return
+  })
   .put((req, res) => {
     if (!checkForTitle(req.body)) {
       console.log('failedID');
       res.send(`{ "success": false }`);
-      // res.redirect(400, '/products/:id') need to update
       return;
     }
 
     if (!articles.findArticleByTitle(req.params.title)) {
       res.send(`{ "success": false }`);
       console.log('title does not exist!');
-      // res.redirect(400, '/products/:id')
       return;
     }
 
-    articles.editArticle(req.params.title, req.body);
+    let context = articles.editArticle(req.params.title, req.body);
 
-    // console.log(products.all());
-
-    res.send(`{ "success": true }`);
+    res.status(200);
+    res.render('layouts/articles/article', context)
     return;
   })
   .delete((req, res) => {
@@ -66,6 +82,12 @@ router
     res.send(`{ "success": true }`);
     return;
   });
+
+router.route('/:title/edit')
+  .get((req, res) => {
+
+    
+  })
 
 function checkInputKeys(responseObject) {
   if (

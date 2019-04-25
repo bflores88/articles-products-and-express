@@ -26,9 +26,13 @@ app.use(
 
 app.use('/products', products);
 app.use('/products/:id', products);
+app.use('/products/:id/edit', products);
+app.use('/products/new', products);
 
 app.use('/articles', articles);
 app.use('/articles/:title', articles);
+app.use('/articles/:title/edit', articles);
+app.use('/articles/new', articles);
 
 
 app.get('/', (req, res) => {
