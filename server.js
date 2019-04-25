@@ -2,6 +2,7 @@ const express = require('express');
 const exphbs = require('express-handlebars');
 const app = express();
 const bodyParser = require('body-parser');
+const methodOverride = require('method-override');
 const PORT = 3000;
 
 const articles = require(`./routes/articles.js`);
@@ -15,7 +16,7 @@ app.engine('.hbs', exphbs({
 }));
 app.set('view engine', '.hbs');
 
-
+app.use(methodOverride('_method'));
 app.use(express.static('public'))
 
 app.use(
