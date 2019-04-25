@@ -85,8 +85,10 @@ router
 
 router.route('/:title/edit')
   .get((req, res) => {
+    let context = articles.findArticleByTitle(req.params.title);
 
-    
+    res.status(200);
+    res.render('layouts/articles/edit', context)
   })
 
 function checkInputKeys(responseObject) {

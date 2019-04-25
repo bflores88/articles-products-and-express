@@ -1,7 +1,22 @@
-<h1 class="title">Enter Product Form</h1>
 
+<form action="/products" method="post" role="form" enctype="application/x-www-form-urlencoded">
+  <h2>New Product Entry Form</h2>
 
-  <span>Name:&nbsp;</span><input type="text"><br>
-  <span>Price:&nbsp;</span><input type="text"><br>
-  <span>Inventory:&nbsp;</span><input type="text">
+  <div class="form-group">
+    <label for="name">Name</label>
+    <input type="text" class="form-control" name="name" placeholder="product name">
+  </div>
 
+  <div class="form-group">
+    <label for="price">Price</label>
+    <input type="text" class="form-control" name="price" placeholder="product price">
+  </div>
+
+  <div class="form-group">
+    <label for="inventory">Inventory</label>
+    <input type="text" class="form-control" name="inventory" placeholder="product inventory">
+  </div>
+
+  <button type="submit" class="btn-submit" value="OK">Submit</button>
+
+</form>
