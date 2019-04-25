@@ -6,7 +6,7 @@ router
   .route('/')
   .get((req, res) => {
 
-    let context = {article: articles.all()};
+    let context = {article: articles.getAllArticles()};
 
     res.status(200);
     res.render('layouts/articles/index', context);
@@ -86,7 +86,7 @@ router
 router.route('/:title/edit')
   .get((req, res) => {
     let context = articles.findArticleByTitle(req.params.title);
-
+    
     res.status(200);
     res.render('layouts/articles/edit', context)
   })

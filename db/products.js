@@ -1,8 +1,8 @@
-let products = [];
-let validIDs = [];
+const products = [];
+const validIDs = [];
 let lastID = 0;
 
-function all() {
+function getAllProducts() {
   return products;
 }
 
@@ -14,10 +14,7 @@ function createID() {
 }
 
 function checkID(num) {
-  if (validIDs.indexOf(num) === -1) {
-    return false;
-  }
-  return true;
+  return (validIDs.indexOf(num) === -1);
 }
 
 function findProductByID(inputID) {
@@ -60,10 +57,10 @@ function deleteProduct (id) {
 }
 
 module.exports = {
-  all: all,
-  findProductByID: findProductByID,
-  addProduct: addProduct,
-  checkID: checkID,
-  editProduct: editProduct,
-  deleteProduct: deleteProduct
+  getAllProducts,
+  findProductByID,
+  addProduct,
+  checkID,
+  editProduct,
+  deleteProduct
 };

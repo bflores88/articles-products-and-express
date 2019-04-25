@@ -1,6 +1,6 @@
-let articles = [];
+const articles = [];
 
-function all() {
+function getAllArticles() {
   return articles;
 }
 
@@ -9,26 +9,26 @@ function createURLTitle(title) {
   return newTitle;
 }
 
-function checkArticleExists(inputTitle){
-  for(let i=0; i<articles.length; i++){
+function checkArticleExists(inputTitle) {
+  for (let i = 0; i < articles.length; i++) {
     let current = articles[i];
-    if(current.title === inputTitle){
-      return true
+    if (current.title === inputTitle) {
+      return true;
     }
   }
   return false;
 }
 
 function findArticleByTitle(inputTitle) {
-  let article = {};
-  for(let i=0; i<articles.length; i++){
+  let article;
+  for (let i = 0; i < articles.length; i++) {
     let current = articles[i];
-    if(current.title === inputTitle){
-      article = current
+    if (current.title === inputTitle) {
+      article = current;
     }
   }
 
-  if(article === {}){
+  if (!article) {
     return false;
   }
 
@@ -43,7 +43,6 @@ function addArticle(responseObject) {
   newArticle.author = responseObject.author;
 
   articles.push(newArticle);
-  return;
 }
 
 function editArticle(title, responseObject) {
@@ -59,7 +58,7 @@ function editArticle(title, responseObject) {
   return articleEdit;
 }
 
-function deleteArticle (inputURLTitle) {
+function deleteArticle(inputURLTitle) {
   let articleDelete = findArticleByTitle(inputURLTitle);
   let deleteIndex = articles.indexOf(articleDelete);
   articles.splice(deleteIndex, 1);
@@ -67,10 +66,10 @@ function deleteArticle (inputURLTitle) {
 }
 
 module.exports = {
-  all: all,
-  checkArticleExists: checkArticleExists,
-  findArticleByTitle: findArticleByTitle,
-  addArticle: addArticle,
-  editArticle: editArticle,
-  deleteArticle: deleteArticle
+  getAllArticles,
+  checkArticleExists,
+  findArticleByTitle,
+  addArticle,
+  editArticle,
+  deleteArticle,
 };

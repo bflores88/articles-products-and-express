@@ -6,7 +6,7 @@ const products = require('../db/products.js');
 router
   .route('/')
   .get((req, res) => {
-    let context = { products: products.all() };
+    let context = { products: products.getAllProducts() };
 
     res.status(200);
     res.render('layouts/products/index', context);
@@ -21,7 +21,7 @@ router
 
     products.addProduct(req.body);
 
-    let context = { products: products.all() };
+    let context = { products: products.getAllProducts() };
 
     res.status(200);
     res.render('layouts/products/index', context);
