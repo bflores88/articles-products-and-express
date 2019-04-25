@@ -27,7 +27,10 @@ router
     res.send(`{ "success": true }`);
     // res.redirect('/articles');
     return;
-  })
+  });
+
+router
+  .route('/:title')
   .put((req, res) => {
     if (!checkForTitle(req.body)) {
       console.log('failedID');
@@ -36,14 +39,14 @@ router
       return;
     }
 
-    if (!articles.findArticleByTitle) {
+    if (!articles.findArticleByTitle(req.params.title)) {
       res.send(`{ "success": false }`);
       console.log('title does not exist!');
       // res.redirect(400, '/products/:id')
       return;
     }
 
-    articles.editArticle(req.body);
+    articles.editArticle(req.params.title, req.body);
 
     // console.log(products.all());
 
@@ -51,14 +54,14 @@ router
     return;
   })
   .delete((req, res) => {
-    if (!articles.findArticleByTitle) {
+    if (!articles.findArticleByTitle(req.params.title)) {
       res.send(`{ "success": false }`);
       console.log('title does not exist!');
       // res.redirect(400, '/products/:id')
       return;
     }
 
-    articles.deleteArticle(req.body.title);
+    articles.deleteArticle(req.params.title, req.body.title);
 
     res.send(`{ "success": true }`);
     return;

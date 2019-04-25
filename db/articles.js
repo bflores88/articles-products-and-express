@@ -19,11 +19,11 @@ function checkArticleExists(inputTitle){
   return false;
 }
 
-function findArticleByTitle(inputTitle) {
+function findArticleByTitle(inputURLTitle) {
   let article = {};
   for(let i=0; i<articles.length; i++){
     let current = articles[i];
-    if(current.title === inputTitle){
+    if(current.urlTitle === inputURLTitle){
       article = current
     }
   }
@@ -46,8 +46,8 @@ function addArticle(responseObject) {
   return;
 }
 
-function editArticle(responseObject) {
-  let articleEdit = findArticleByTitle(responseObject.title);
+function editArticle(title, responseObject) {
+  let articleEdit = findArticleByTitle(title);
 
   for (let key in responseObject) {
     articleEdit[key] = responseObject[key];
@@ -56,8 +56,8 @@ function editArticle(responseObject) {
   return;
 }
 
-function deleteArticle (inputTitle) {
-  let articleDelete = findArticleByTitle(inputTitle);
+function deleteArticle (inputURLTitle) {
+  let articleDelete = findArticleByTitle(inputURLTitle);
   let deleteIndex = articles.indexOf(articleDelete);
   articles.splice(deleteIndex, 1);
   return;
