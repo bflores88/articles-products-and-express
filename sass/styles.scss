@@ -1,8 +1,33 @@
+$body-font: arial;
+
+@import '_header';
+@import '_nav';
+@import '_footer';
+
 body {
-  background-color: rosybrown;
+  margin: 0px;
+  background-color: white;
+  font-family: $body-font
 }
 
 legend {
   font-size: 25px;
   color: blue;
+}
+
+.main-home {
+  padding: 2vw;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+}
+
+.nav-to-new {
+  width: 100%;
+  height: 10vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center
 }

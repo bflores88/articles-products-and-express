@@ -14,8 +14,7 @@ router
   })
   .post((req, res) => {
     if (!checkInputKeys(req.body)) {
-      res.status(400);
-      res.render('layouts/products/new');
+      res.redirect(200, '/products/new');
       return;
     }
 
@@ -46,13 +45,13 @@ router
   })
   .put((req, res) => {
     if (products.checkID(Number(req.params.id)) === false) {
-      res.status(400);
+
+      res.status(200);
       res.render('layouts/products/edit');
       return;
     }
 
     products.editProduct(req.params.id, req.body);
-
     let context = products.findProductByID(req.params.id);
 
     res.status(200);

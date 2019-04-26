@@ -6,7 +6,7 @@ router
   .route('/')
   .get((req, res) => {
 
-    let context = {article: articles.getAllArticles()};
+    let context = {article: {article: articles.getAllArticles()}};
 
     res.status(200);
     res.render('layouts/articles/index', context);
@@ -14,22 +14,35 @@ router
   })
   .post((req, res) => {
     if (!checkInputKeys(req.body)) {
-      res.send(`{ "success": false }`);
-      // res.redirect(400, '/articles/new')
+
+      let context = {
+        errorTitle: 'Error - Missing Input',
+        errorBody: 'Please ensure all fields are inputted before submitting.'
+      };
+
+      res.status(200);
+      res.render('layouts/articles/new', context);
       return;
     }
 
     if (articles.checkArticleExists(req.body.title)) {
-      res.send(`{ "success": false }`);
-      console.log('this title already exists!');
-      // res.redirect(400, '/products/:id')
+
+      let context = {
+        errorTitle: 'Error - Duplicate Title',
+        errorBody: 'You already have an article with this title.'
+      };
+
+      res.status(200);
+      res.render('layouts/articles/new', context);
       return;
     }
 
     articles.addArticle(req.body);
 
-    res.send(`{ "success": true }`);
-    // res.redirect('/articles');
+    let context = {article: articles.getAllArticles()};
+
+    res.status(200);
+    res.render('layouts/articles/index', context);
     return;
   });
 
@@ -97,9 +110,15 @@ function checkInputKeys(responseObject) {
     responseObject.hasOwnProperty('body') &&
     responseObject.hasOwnProperty('author')
   ) {
-    return true;
-  }
-  return false;
+    if (!responseObject.title || !responseObject.body || !responseObject.author) {
+      return false;
+    } else {
+      return true;
+    }
+  } else {return false};
+
+
+  
 }
 
 function checkForTitle(responseObject) {

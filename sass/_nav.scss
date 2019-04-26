@@ -1,0 +1,20 @@
+.nav-bar {
+  width: 100%;
+  background-color: black;
+  border-bottom: 4px double white;
+  border-top: 4px double white;
+  padding-top: 0.5vw;
+  padding-bottom: 0.5vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+
+  .nav-link {
+    text-decoration: none;
+    color: white
+  }
+    :hover{
+      font-style: italic;
+      color: lightgray;
+    }
+}

@@ -1,4 +1,11 @@
-{{#each article}}
+
+<div class="nav-to-new">
+  <a href="/articles/new">Add New Article</a>
+</div>
+
+<main>
+
+  {{#each article}}
 <div class="article">
   <h1 class="title">{{title}}</h1>
   <h3 class="author">By:&nbsp;{{author}}</h3>
@@ -8,3 +15,5 @@
   </section>
 </div>
 {{/each}}
+
+</main>
