@@ -1,11 +1,14 @@
 header {
   width: 100%;
-  font-size: 25px;
+  height: 5vw;
+  font-size: 45px;
+  font-weight: 900;
   font-style: italic;
   display: flex;
   justify-content: center;
   flex-direction: row;
-  align-items: center; }
+  align-items: center;
+  margin: 2vw 0vw; }
 
 .nav-bar {
   width: 100%;
@@ -16,7 +19,9 @@ header {
   padding-bottom: 0.5vw;
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly; }
+  justify-content: space-evenly;
+  position: sticky;
+  top: 0; }
   .nav-bar .nav-link {
     text-decoration: none;
     color: white; }
@@ -38,6 +43,36 @@ footer {
   border-top: 1px solid black;
   background-color: white; }
 
+main {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  margin-bottom: 100px; }
+  main .article {
+    width: 80%;
+    padding: 3vw 3vw;
+    border-bottom: 4px double black; }
+  main .title {
+    font-family: "Poiret One", cursive;
+    font-weight: 900;
+    font-size: 50px; }
+  main .author {
+    margin: 5px 0px; }
+  main .url {
+    font-size: 14px;
+    color: gray; }
+    main .url a {
+      text-decoration: none;
+      color: blue; }
+    main .url :hover {
+      color: white;
+      background-color: blue; }
+  main .body {
+    margin-top: 20px; }
+
 .product-listing {
   width: 100%;
   display: flex;
@@ -52,29 +87,70 @@ footer {
     padding: 15px;
     width: 20vw; }
     .product-listing .all-products .productID {
-      font-size: 12px; }
+      font-size: 12px;
+      color: gray; }
+      .product-listing .all-products .productID a {
+        text-decoration: none;
+        color: blue;
+        font-weight: 900; }
+      .product-listing .all-products .productID :hover {
+        color: white;
+        background-color: blue; }
+
+h2 {
+  text-align: center; }
+
+#body-input {
+  height: 275px;
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: row;
+  flex-wrap: wrap;
+  text-align: start;
+  border: 1px solide gray; }
 
 .form-content {
   width: 100%;
-  margin: 0px 2vw; }
+  margin-top: 50px;
+  margin-bottom: 100px;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  justify-content: center; }
   .form-content .input-form {
     margin-left: 5vw;
-    margin-right: 5vw; }
+    margin-right: 5vw;
+    width: 70%; }
+    .form-content .input-form label {
+      display: block;
+      padding: 5px; }
     .form-content .input-form .form-group {
       margin: 1vw; }
       .form-content .input-form .form-group .form-control {
-        width: 100%; }
-        .form-content .input-form .form-group .form-control :last-child {
-          height: 30vw; }
+        width: 100%;
+        height: 30px;
+        border-radius: 6px;
+        border: 1px solid gray; }
+      .form-content .input-form .form-group .form-control-product {
+        width: 100%;
+        height: 30px;
+        margin-left: auto;
+        margin-right: auto;
+        border-radius: 6px;
+        border: 1px solid gray; }
 
 body {
   margin: 0px;
   background-color: white;
-  font-family: arial; }
+  font-family: "Quicksand", sans-serif; }
 
-legend {
-  font-size: 25px;
+.add-new {
+  text-decoration: none;
   color: blue; }
+  .add-new:hover {
+    background-color: blue;
+    color: white; }
 
 .main-home {
   padding: 2vw;
@@ -85,7 +161,8 @@ legend {
 
 .nav-to-new {
   width: 100%;
-  height: 10vw;
+  margin-top: 2vw;
+  height: 9vw;
   display: flex;
   flex-direction: row;
   justify-content: center;

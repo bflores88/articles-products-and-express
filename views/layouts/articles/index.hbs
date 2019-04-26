@@ -11,9 +11,9 @@
 
   {{#each article}}
 <div class="article">
-  <h1 class="title">{{title}}</h1>
-  <h3 class="author">By:&nbsp;{{author}}</h3>
-  <h5 class="url">URL Title:&nbsp;<a href="/articles/{{urlTitle}}">{{urlTitle}}</a></h5>
+  <div class="title">{{title}}</div>
+  <div class="author">By:&nbsp;{{author}}</div>
+  <div class="url">Click URL title to edit:&nbsp;<a href="/articles/{{urlTitle}}">{{urlTitle}}</a></div>
   <section class="body">
     {{body}}
   </section>
