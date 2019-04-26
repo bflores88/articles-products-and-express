@@ -14,7 +14,13 @@ router
   })
   .post((req, res) => {
     if (!checkInputKeys(req.body)) {
-      res.redirect(200, '/products/new');
+      let context = {
+        errorTitle: 'Error - Missing Input',
+        errorBody: 'Please ensure all fields are inputted before submitting.',
+      };
+      
+      res.status(200);
+      res.render('layouts/products/new', context);
       return;
     }
 
@@ -45,9 +51,14 @@ router
   })
   .put((req, res) => {
     if (products.checkID(Number(req.params.id)) === false) {
+      let getProduct = products.findProductByID(req.params.id);
+      getProduct.errorTitle = "Error - Missing Input";
+      getProduct.errorBody = "Please ensure all fields are inputted before submitting.";
+
+      let context = getProduct;
 
       res.status(200);
-      res.render('layouts/products/edit');
+      res.render('layouts/products/edit', context);
       return;
     }
 
@@ -59,15 +70,22 @@ router
     return;
   })
   .delete((req, res) => {
-    if (products.checkID(req.params.id)) {
+    if (!products.checkID(req.params.id)) {
+      let context = {
+        errorTitle: 'Error - This Product ID Does Not Exist!',
+        errorBody: 'You currently do not have a product with this ID.',
+      };
+
       res.status(200);
-      res.render('layouts/products/new');
+      res.render('layouts/products/new', context);
       return;
     }
 
+    const deletedID = req.params.id;
+
     products.deleteProduct(req.params.id);
 
-    let context = { products: products.all() };
+    let context = { products: products.getAllProducts(), deleteMessage: `You've successfully deleted Product ID ${deletedID}!!` };
 
     res.status(200);
     res.render('layouts/products/index', context);
@@ -87,7 +105,11 @@ function checkInputKeys(responseObject) {
     responseObject.hasOwnProperty('price') &&
     responseObject.hasOwnProperty('inventory')
   ) {
-    return true;
+    if(responseObject.name && responseObject.price && responseObject.inventory){
+      return true;
+    } else {
+      return false;
+    }
   }
   return false;
 }

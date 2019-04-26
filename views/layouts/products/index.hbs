@@ -3,6 +3,11 @@
   <a href="/products/new">Add New Product</a>
 </div>
 
+
+<section class="delete-success">
+  <h2>{{deleteMessage}}</h2>
+</section>
+
 <main>
 
   {{#each products}}
@@ -10,6 +15,7 @@
     <h1>{{name}}</h1>
     <p>Price:&nbsp;<span>{{price}}</span></p>
     <p>Inventory:&nbsp;<span>{{inventory}}</span></p>
+    <p>Product ID:&nbsp;<span><a href="/products/{{id}}/edit">{{id}}</a></span></p>
 </div>
 {{/each}}
 
