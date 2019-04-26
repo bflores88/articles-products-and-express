@@ -17,22 +17,23 @@ main {
     font-family: $header-font;
     font-weight: 900;
     font-size: 50px;
+    text-align: center;
   }
 
   .author {
     margin: 5px 0px;
+    text-align: center;
   }
 
   .url {
-    font-size: 14px;
-    color: gray;
-    a {
-      text-decoration: none;
-      color: blue;
-    }
+    font-size: 16px;
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    color: $link-color;
     :hover {
-      color: white;
-      background-color: blue;
+      text-emphasis: italic;
+      color: $link-hover;
     }
   }
 

@@ -1,10 +1,13 @@
+
+<main>
+
 <div class="article">
-  <h1 class="title">{{title}}</h1>
-  <h3 class="author">By: {{author}}</h3>
+  <div class="title">{{title}}</div>
+  <div class="author">By:&nbsp;{{author}}</div><br>
+  <div class="url"><a class="url" href="/articles/{{urlTitle}}/edit"><i class="fas fa-user-edit"></i>&nbsp;Edit Article</a></div>
   <section class="body">
     {{body}}
   </section>
-  <section class="edit">
-    <a href="/articles/{{urlTitle}}/edit">Click here to edit.</a>
-  </section>
 </div>
+
+</main>

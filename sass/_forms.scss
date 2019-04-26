@@ -1,4 +1,4 @@
-h2 {
+h2, h5 {
   text-align: center;
 }
 
@@ -21,10 +21,22 @@ h2 {
   margin-right: auto;
   display: flex;
   justify-content: center;
+  flex-direction: column;
+
+  .new-error-handler {
+    margin-left: auto;
+    margin-right: auto;
+    color: red;
+
+    .errorTitle {
+      font-size: 40px;
+      font-weight: 900;
+    }
+  }
 
   .input-form {
-    margin-left: 5vw;
-    margin-right: 5vw;
+    margin-left: auto;
+    margin-right: auto;
     width: 70%;
 
     label {
@@ -54,6 +66,7 @@ h2 {
     }
   }
 }
+
 
 // .submitButton {
 //   width: 20%;

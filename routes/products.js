@@ -19,8 +19,7 @@ router
         errorBody: 'Please ensure all fields are inputted before submitting.',
       };
       
-      res.status(200);
-      res.render('layouts/products/new', context);
+      res.redirect(302, '/products/new');
       return;
     }
 
@@ -28,8 +27,7 @@ router
 
     let context = { products: products.getAllProducts() };
 
-    res.status(200);
-    res.render('layouts/products/index', context);
+    res.redirect(302, '/products');
     return;
   });
 
@@ -50,15 +48,14 @@ router
     return;
   })
   .put((req, res) => {
-    if (products.checkID(Number(req.params.id)) === false) {
+    if (!checkInputKeys(req.body)) {
       let getProduct = products.findProductByID(req.params.id);
       getProduct.errorTitle = "Error - Missing Input";
       getProduct.errorBody = "Please ensure all fields are inputted before submitting.";
 
       let context = getProduct;
 
-      res.status(200);
-      res.render('layouts/products/edit', context);
+      res.redirect(302, 'layouts/products/edit');
       return;
     }
 
@@ -105,10 +102,10 @@ function checkInputKeys(responseObject) {
     responseObject.hasOwnProperty('price') &&
     responseObject.hasOwnProperty('inventory')
   ) {
-    if(responseObject.name && responseObject.price && responseObject.inventory){
-      return true;
-    } else {
+    if(!responseObject.name || !responseObject.price || !responseObject.inventory){
       return false;
+    } else {
+      return true;
     }
   }
   return false;

@@ -1,0 +1,19 @@
+.main-home {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  margin: 75px auto auto auto;
+
+  .welcome {
+    color: $header-color;
+    font-family: $header-font;
+    font-size: 60px;
+    font-weight: 900;
+  }
+
+  .introduction {
+    margin: 50px;
+    font-size: 20px;
+  }
+}

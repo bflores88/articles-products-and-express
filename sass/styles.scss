@@ -1,28 +1,61 @@
 $error-font: 'Questrial', sans-serif;
 $header-font: 'Poiret One', cursive;
 $body-font: 'Quicksand', sans-serif;
+$body-font-color: #1e6262;
+$header-color: #2d767f;
+$link-color: #f60c86; 
+$link-hover: #b4f1f1;
+
 
 @import '_header';
 @import '_nav';
 @import '_footer';
+@import '_home';
 @import '_articles';
 @import '_products';
 @import '_forms';
  
 body {
   margin: 0px;
-  background-color: white;
   font-family: $body-font;
+  background-color: #ecfffb;
+  color: $body-font-color;
 }
 
 .add-new {
   text-decoration: none;
-  color: blue;
+  font-size: 25px;
+  color: $link-color;
+  font-weight: bolder; 
 
   &:hover{
-    background-color: blue;
-    color: white;
+    text-decoration: blink;
+    color: $link-hover;
   }
+}
+
+.buttonDiv {
+  text-align: center;
+  button {
+    background-color: $link-color;
+    font-family: $error-font;
+    border: none;
+    color: $link-hover;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 3px;
+    &:hover {
+      background-color: $header-color;
+    }
+  }
+}
+
+.headerText {
+  font-family: $header-font;
+  font-size: 50px;
 }
 
 .main-home {
@@ -43,3 +76,12 @@ body {
   align-items: center
     
 }
+
+.titleLink {
+  text-decoration: none;
+  color: $link-color;
+  &:hover {
+    color: $link-hover;
+  }
+}
+

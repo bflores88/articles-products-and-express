@@ -1,6 +1,6 @@
 
 <div class="nav-to-new">
-  <a class="add-new" href="/articles/new">Add New Article</a>
+  <a class="add-new" href="/articles/new"><i class="fas fa-pencil-alt"></i>&nbsp;Add New Article</a>
 </div>
 
 <section class="delete-success">
@@ -11,9 +11,10 @@
 
   {{#each article}}
 <div class="article">
-  <div class="title">{{title}}</div>
+  <div class="title"><a class="titleLink" href="/articles/{{urlTitle}}">{{title}}</a></div>
   <div class="author">By:&nbsp;{{author}}</div>
-  <div class="url">Click URL title to edit:&nbsp;<a href="/articles/{{urlTitle}}">{{urlTitle}}</a></div>
+  <br>
+  <div class="url"><a class="url" href="/articles/{{urlTitle}}/edit"><i class="fas fa-user-edit"></i>&nbsp;Edit Article</a></div>
   <section class="body">
     {{body}}
   </section>
