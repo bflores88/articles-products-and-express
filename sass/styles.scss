@@ -3,11 +3,13 @@ $body-font: arial;
 @import '_header';
 @import '_nav';
 @import '_footer';
+@import '_products';
+@import '_forms';
 
 body {
   margin: 0px;
   background-color: white;
-  font-family: $body-font
+  font-family: $body-font;
 }
 
 legend {

@@ -25,7 +25,7 @@ header {
     color: lightgray; }
 
 footer {
-  position: absolute;
+  position: fixed;
   bottom: 0;
   width: 100%;
   height: 1.5vw;
@@ -35,7 +35,37 @@ footer {
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
-  border-top: 1px solid black; }
+  border-top: 1px solid black;
+  background-color: white; }
+
+.product-listing {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 100px; }
+  .product-listing .all-products {
+    margin: 10px 15px;
+    border: 4px double black;
+    padding: 15px;
+    width: 20vw; }
+    .product-listing .all-products .productID {
+      font-size: 12px; }
+
+.form-content {
+  width: 100%;
+  margin: 0px 2vw; }
+  .form-content .input-form {
+    margin-left: 5vw;
+    margin-right: 5vw; }
+    .form-content .input-form .form-group {
+      margin: 1vw; }
+      .form-content .input-form .form-group .form-control {
+        width: 100%; }
+        .form-content .input-form .form-group .form-control :last-child {
+          height: 30vw; }
 
 body {
   margin: 0px;

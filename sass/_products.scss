@@ -1,0 +1,20 @@
+.product-listing {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 100px;
+  
+  .all-products {
+    margin: 10px 15px;
+    border: 4px double black;
+    padding: 15px;
+    width: 20vw;
+
+    .productID {
+      font-size: 12px;
+    }
+  }
+}

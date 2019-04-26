@@ -1,0 +1,21 @@
+.form-content {
+  width: 100%;
+  margin: 0px 2vw;
+
+  .input-form {
+    margin-left: 5vw;
+    margin-right: 5vw;
+
+    .form-group {
+      margin: 1vw;
+
+      .form-control {
+        width: 100%;
+        :last-child {
+          height: 30vw;
+        }
+      }
+    }
+  }
+
+}

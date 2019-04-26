@@ -1,6 +1,6 @@
 
 <div class="nav-to-new">
-  <a href="/products/new">Add New Product</a>
+  <a class="add-new" href="/products/new">Add New Product</a>
 </div>
 
 
@@ -8,14 +8,14 @@
   <h2>{{deleteMessage}}</h2>
 </section>
 
-<main>
+<main class="product-listing">
 
   {{#each products}}
-<div>
+<div class="all-products">
     <h1>{{name}}</h1>
+    <p class="productID">Product ID:&nbsp;<span><a href="/products/{{id}}/edit">{{id}}</a></span></p>
     <p>Price:&nbsp;<span>{{price}}</span></p>
     <p>Inventory:&nbsp;<span>{{inventory}}</span></p>
-    <p>Product ID:&nbsp;<span><a href="/products/{{id}}/edit">{{id}}</a></span></p>
 </div>
 {{/each}}
 
