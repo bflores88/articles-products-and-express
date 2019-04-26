@@ -6,7 +6,7 @@ router
   .route('/')
   .get((req, res) => {
 
-    let context = {article: {article: articles.getAllArticles()}};
+    let context = {article: articles.getAllArticles()};
 
     res.status(200);
     res.render('layouts/articles/index', context);
@@ -64,9 +64,15 @@ router
     return
   })
   .put((req, res) => {
-    if (!checkForTitle(req.body)) {
-      console.log('failedID');
-      res.send(`{ "success": false }`);
+    if (!checkInputKeys(req.body)) {
+
+      let context = {
+        errorTitle: 'Error - Missing Input',
+        errorBody: 'Please ensure all fields are inputted before submitting.'
+      };
+
+      res.status(200);
+      res.render('layouts/articles/new', context);
       return;
     }
 
