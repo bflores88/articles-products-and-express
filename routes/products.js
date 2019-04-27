@@ -44,7 +44,7 @@ router.route('/new').get((req, res) => {
 
   if (error) {
     context = {
-      errorTitle: 'Error - Missing Information',
+      errorTitle: 'ERROR - Missing Information',
       errorBody: 'Please make sure all fields are filled out before clicking submit.',
     };
   }
@@ -93,10 +93,9 @@ router
 
 router.route('/:id/edit').get((req, res) => {
   let context = products.findProductByID(req.params.id);
-  console.log(context);
 
   if (error) {
-    context.errorTitle = 'Error - Missing Information';
+    context.errorTitle = 'ERROR - Missing Information';
     context.errorBody = 'Please make sure all fields are filled out before clicking submit.';
     error = false;
     res.status(200);
