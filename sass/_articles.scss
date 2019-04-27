@@ -1,3 +1,15 @@
+.article-nav {
+  margin: 0px;
+  background-image: url('/assets/writing-sationary.jpg');
+  background-size: cover;
+  .nav-link {
+    background-color: white;
+    opacity: 1;
+    border-radius: 12px;
+    padding: 10px 25px;
+  }
+}
+
 main {
   width: 100%;
   display: flex;
@@ -43,5 +55,4 @@ main {
   .body {
     margin-top: 20px;
   }
-
 }

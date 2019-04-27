@@ -4,6 +4,17 @@
   justify-content: center;
   text-align: center;
   margin: 75px auto auto auto;
+  background-image: url('/assets/working-from-home.jpg');
+  background-size: cover;
+  height: 100%;
+  width: 100px;
+
+  .home-content {
+    background-color: rgba(245, 239, 239, 0.9);
+    padding: 10px;
+    border-radius: 2px;
+    
+  }
 
   .welcome {
     color: $header-color;
@@ -13,7 +24,7 @@
   }
 
   .introduction {
-    margin: 50px;
+    margin: 20px;
     font-size: 20px;
   }
 }

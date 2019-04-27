@@ -1,5 +1,6 @@
 header {
   width: 100%;
+  min-height: 75px;
   height: 5vw;
   font-size: 65px;
   font-weight: 900;
@@ -9,4 +10,5 @@ header {
   align-items: center;
   margin: 2vw 0vw;
   font-family: $header-font;
+
 }

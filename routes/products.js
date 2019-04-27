@@ -16,11 +16,12 @@ router
       context.deleteMessage = `You've successfully deleted Product ID ${deletedID}!!`;
       res.status(200);
       res.render('layouts/products/index', context);
-      deleted = true;
+      deleted = false;
       deletedID = '';
       return;
     }
 
+    context.deleteMessage = ``;
     res.status(200);
     res.render('layouts/products/index', context);
     return;

@@ -15,12 +15,13 @@ router
       context = { article: articles.getAllArticles() };
       context.deleteMessage = `You've successfully deleted ${deletedArticle}!!`;
       deleted = false;
+      deletedArticle = '';
       res.status(200);
       res.render('layouts/articles/index', context);
     } else {
       deleted = false;
       context = { article: articles.getAllArticles() };
-      context = { article: articles.getAllArticles() };
+      context.deleteMessage = ``;
       res.status(200);
       res.render('layouts/articles/index', context);
       return;
@@ -85,10 +86,10 @@ router
     if (!checkInputKeys(req.body)) {
       error = true;
 
-      res.redirect(`articles/${req.params.title}`)
+      res.redirect(`articles/${req.params.title}`);
       return;
     }
-    
+
     let editedArticle = articles.editArticle(req.params.title, req.body);
 
     res.redirect(302, `articles/${editedArticle.title}`);
