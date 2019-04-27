@@ -2,51 +2,75 @@ const express = require('express');
 const router = express.Router();
 const articles = require('../db/articles.js');
 
+let error = false;
+let duplicate = false;
+let deleted = false;
+let deletedArticle;
+
 router
   .route('/')
   .get((req, res) => {
     let context = { article: articles.getAllArticles() };
-
-    res.status(200);
-    res.render('layouts/articles/index', context);
-    return;
+    if (deleted) {
+      context = { article: articles.getAllArticles() };
+      context.deleteMessage = `You've successfully deleted ${deletedArticle}!!`;
+      deleted = false;
+      res.status(200);
+      res.render('layouts/articles/index', context);
+    } else {
+      deleted = false;
+      context = { article: articles.getAllArticles() };
+      context = { article: articles.getAllArticles() };
+      res.status(200);
+      res.render('layouts/articles/index', context);
+      return;
+    }
   })
   .post((req, res) => {
     if (!checkInputKeys(req.body)) {
-      let context = {
-        errorTitle: 'Error - Missing Input',
-        errorBody: 'Please ensure all fields are inputted before submitting.',
-      };
+      error = true;
 
-      res.status(200);
-      res.render('layouts/articles/new', context);
+      res.redirect(302, '/articles/new');
       return;
     }
 
     if (articles.checkArticleExists(req.body.title)) {
-      let context = {
-        errorTitle: 'Error - Duplicate Title',
-        errorBody: 'You already have an article with this title.',
-      };
+      duplicate = true;
 
-      res.status(200);
-      res.render('layouts/articles/new', context);
+      res.redirect(302, '/articles/new');
       return;
     }
 
     articles.addArticle(req.body);
 
-    let context = { article: articles.getAllArticles() };
-
-    res.status(200);
-    res.render('layouts/articles/index', context);
+    res.redirect(302, '/articles');
     return;
   });
 
 router.route('/new').get((req, res) => {
-  res.status(200);
-  res.render('layouts/articles/new');
-  return;
+  if (error) {
+    error = false;
+    let context = {
+      errorTitle: 'ERROR - Missing Input',
+      errorBody: 'Please ensure all fields are inputted before submitting.',
+    };
+    res.status(200);
+    res.render('layouts/articles/new', context);
+    return;
+  } else if (duplicate) {
+    duplicate = false;
+    let context = {
+      errorTitle: 'ERROR - Duplicate Title',
+      errorBody: 'Please use a new, unique title.',
+    };
+    res.status(200);
+    res.render('layouts/articles/new', context);
+    return;
+  } else {
+    res.status(200);
+    res.render('layouts/articles/new');
+    return;
+  }
 });
 
 router
@@ -59,61 +83,49 @@ router
   })
   .put((req, res) => {
     if (!checkInputKeys(req.body)) {
-      let thisArticle = articles.findArticleByTitle(req.body.title);
-      thisArticle.errorTitle = 'ERROR - Missing Input';
-      thisArticle.errorBody = 'Please ensure all fields are inputted before submitting.';
-      let context = thisArticle;
+      error = true;
 
-      res.status(200);
-      res.render('layouts/articles/edit', context);
+      res.redirect(`articles/${req.params.title}`)
       return;
     }
+    
+    let editedArticle = articles.editArticle(req.params.title, req.body);
 
-    if (!articles.findArticleByTitle(req.params.title)) {
-      let context = {
-        errorTitle: 'Error - This Title Does Not Exist!',
-        errorBody: 'You currently do not have an article with this title.',
-      };
-
-      res.status(200);
-      res.render('layouts/articles/new', context);
-      return;
-    }
-
-    let context = articles.editArticle(req.params.title, req.body);
-
-    res.status(200);
-    res.render('layouts/articles/article', context);
+    res.redirect(302, `articles/${editedArticle.title}`);
     return;
   })
   .delete((req, res) => {
     if (!articles.findArticleByTitle(req.params.title)) {
-      let context = {
-        errorTitle: 'Error - This Title Does Not Exist!',
-        errorBody: 'You currently do not have an article with this title.',
-      };
-
-      res.status(200);
-      res.render('layouts/articles/new', context);
+      res.redirect(302, `/articles/${req.params.title}/edit`);
       return;
     }
 
-    const title = req.params.title;
-
-    let context = { article: articles.getAllArticles(), deleteMessage: `You've succesesfuly deleted ${title}!!` };
+    deleted = true;
+    deletedArticle = req.params.title;
 
     articles.deleteArticle(req.params.title, req.body.title);
 
     res.status(200);
-    res.render('layouts/articles/index', context);
+    res.redirect(302, '/articles');
     return;
   });
 
 router.route('/:title/edit').get((req, res) => {
   let context = articles.findArticleByTitle(req.params.title);
 
-  res.status(200);
-  res.render('layouts/articles/edit', context);
+  if (error) {
+    context.errorTitle = 'ERROR = Missing Information';
+    context.errorBody = 'Please ensure all fields are inputted before submitting.';
+    error = false;
+    res.status(200);
+    res.render('layouts/articles/edit', context);
+    return;
+  } else {
+    context = articles.findArticleByTitle(req.params.title);
+    res.status(200);
+    res.render('layouts/articles/edit', context);
+    return;
+  }
 });
 
 function checkInputKeys(responseObject) {
