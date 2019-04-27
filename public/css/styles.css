@@ -2,7 +2,7 @@ header {
   width: 100%;
   min-height: 75px;
   height: 5vw;
-  font-size: 65px;
+  font-size: 40px;
   font-weight: 900;
   display: flex;
   justify-content: center;
@@ -10,6 +10,10 @@ header {
   align-items: center;
   margin: 2vw 0vw;
   font-family: "Poiret One", cursive; }
+
+@media screen and (min-width: 420px) {
+  header {
+    font-size: 65px; } }
 
 .nav-bar {
   width: 100%;
@@ -34,8 +38,8 @@ footer {
   bottom: 0;
   width: 100%;
   height: 1.5vw;
-  font-size: 9px;
-  padding: 5px;
+  font-size: 12px;
+  padding: 10px;
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
@@ -44,28 +48,36 @@ footer {
   background-color: black;
   color: #2d767f; }
 
-.main-home {
+#main-home {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
   text-align: center;
-  margin: 75px auto auto auto;
+  margin-top: 7%;
   background-image: url("/assets/working-from-home.jpg");
   background-size: cover;
   height: 100%;
-  width: 100px; }
-  .main-home .home-content {
+  width: 100%; }
+  #main-home .home-content {
     background-color: rgba(245, 239, 239, 0.9);
     padding: 10px;
-    border-radius: 2px; }
-  .main-home .welcome {
+    border-radius: 2px;
+    margin: 5%; }
+  #main-home .welcome {
     color: #2d767f;
     font-family: "Poiret One", cursive;
     font-size: 50px;
     font-weight: 900; }
-  .main-home .introduction {
+  #main-home .introduction {
     margin: 20px;
     font-size: 20px; }
+  #main-home .home-add {
+    width: 100%;
+    height: 75px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center; }
 
 .article-nav {
   margin: 0px;
@@ -94,9 +106,10 @@ main {
     font-family: "Poiret One", cursive;
     font-weight: 900;
     font-size: 50px;
-    text-align: center; }
+    text-align: center;
+    margin: 10px; }
   main .author {
-    margin: 5px 0px;
+    margin: 20px 0px 10px 0px;
     text-align: center; }
   main .url {
     font-size: 16px;
@@ -140,6 +153,8 @@ main {
     overflow: auto; }
     .product-listing .all-products:hover {
       border: 10px solid #2d767f; }
+    .product-listing .all-products .headerText {
+      font-size: 30px; }
     .product-listing .all-products .productID {
       font-size: 18px; }
       .product-listing .all-products .productID a {
@@ -148,6 +163,11 @@ main {
         font-weight: 900; }
       .product-listing .all-products .productID :hover {
         color: #b4f1f1; }
+  @media screen and (max-width: 600px) {
+    .product-listing h1 {
+      font-size: initial; }
+    .product-listing .all-products {
+      width: 60vw; } }
   .product-listing .single-product {
     margin-left: auto;
     margin-right: auto;
@@ -257,21 +277,6 @@ h1 {
     font-family: "Poiret One", cursive;
     font-size: 6vw;
     margin: 10px 0px; }
-
-.home-add {
-  width: 100%;
-  height: 75px;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center; }
-
-.main-home {
-  padding: 2vw;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  flex-direction: row; }
 
 .nav-to-new {
   width: 100%;

@@ -93,6 +93,7 @@ router
 
 router.route('/:id/edit').get((req, res) => {
   let context = products.findProductByID(req.params.id);
+  console.log(context);
 
   if (error) {
     context.errorTitle = 'Error - Missing Information';

@@ -32,7 +32,7 @@ function addProduct(responseObject) {
   let newProduct = {};
   newProduct.id = createID();
   newProduct.name = responseObject.name;
-  newProduct.price = responseObject.price;
+  newProduct.price = Number(responseObject.price).toFixed(2).toLocaleString('en');
   newProduct.inventory = responseObject.inventory;
 
   products.push(newProduct);

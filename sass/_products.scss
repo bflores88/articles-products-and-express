@@ -34,6 +34,10 @@
       border: 10px solid $header-color;
     }
 
+    .headerText {
+      font-size: 30px;
+    }
+
     .productID {
       font-size: 18px;
       a {
@@ -44,6 +48,15 @@
       :hover {
         color: $link-hover;
       }
+    }
+  }
+
+  @media screen and (max-width: 600px) {
+    h1 {
+      font-size: initial;
+    }
+    .all-products {
+      width: 60vw;
     }
   }
 

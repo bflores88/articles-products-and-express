@@ -2,7 +2,7 @@ header {
   width: 100%;
   min-height: 75px;
   height: 5vw;
-  font-size: 65px;
+  font-size: 40px;
   font-weight: 900;
   display: flex;
   justify-content: center;
@@ -11,4 +11,10 @@ header {
   margin: 2vw 0vw;
   font-family: $header-font;
 
+}
+
+@media screen and (min-width: 420px) {
+  header {
+    font-size: 65px;
+  }
 }
