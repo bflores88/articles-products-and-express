@@ -35,7 +35,6 @@ app.use('/articles/:title', articles);
 app.use('/articles/:title/edit', articles);
 app.use('/articles/new', articles);
 
-
 app.get('/', (req, res) => {
   res.render('layouts/home');
 });

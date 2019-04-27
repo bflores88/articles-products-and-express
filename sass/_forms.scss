@@ -1,4 +1,4 @@
-h2, h5 {
+h2, h4 {
   text-align: center;
 }
 
@@ -11,11 +11,12 @@ h2, h5 {
   flex-wrap: wrap;
   text-align: start;
   border: 1px solide gray;
+  font-size: 18px;
 }
 
 .form-content {
   width: 100%;
-  margin-top: 50px;
+  margin-top: 15px;
   margin-bottom: 100px;
   margin-left: auto;
   margin-right: auto;
@@ -31,6 +32,10 @@ h2, h5 {
     .errorTitle {
       font-size: 40px;
       font-weight: 900;
+    }
+
+    .errorBody {
+      text-align: center;
     }
   }
 
@@ -53,6 +58,8 @@ h2, h5 {
         height: 30px;
         border-radius: 6px;
         border: 1px solid gray;
+        font-size: 18px;
+        padding: 5px;
       }
 
       .form-control-product {
@@ -62,6 +69,8 @@ h2, h5 {
         margin-right: auto;
         border-radius: 6px;
         border: 1px solid gray;
+        font-size: 18px;
+        padding: 5px;
       }
     }
   }

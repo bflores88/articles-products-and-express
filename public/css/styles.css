@@ -1,14 +1,14 @@
 header {
   width: 100%;
   height: 5vw;
-  font-size: 45px;
+  font-size: 65px;
   font-weight: 900;
-  font-style: italic;
   display: flex;
   justify-content: center;
   flex-direction: row;
   align-items: center;
-  margin: 2vw 0vw; }
+  margin: 2vw 0vw;
+  font-family: "Poiret One", cursive; }
 
 .nav-bar {
   width: 100%;
@@ -52,7 +52,7 @@ footer {
   .main-home .welcome {
     color: #2d767f;
     font-family: "Poiret One", cursive;
-    font-size: 60px;
+    font-size: 50px;
     font-weight: 900; }
   .main-home .introduction {
     margin: 50px;
@@ -68,7 +68,8 @@ main {
   margin-bottom: 100px; }
   main .article {
     width: 80%;
-    padding: 3vw 3vw;
+    padding: 3vw 3vw; }
+  main .all-articles {
     border-bottom: 4px double black; }
   main .title {
     font-family: "Poiret One", cursive;
@@ -100,10 +101,12 @@ main {
   margin-bottom: 100px; }
   .product-listing .all-products {
     margin: 10px 15px;
-    border: 4px double black;
-    padding: 15px;
-    width: 20vw;
-    background-color: white; }
+    border: 3px solid black;
+    padding: 20px;
+    width: 25vw;
+    height: 30vw;
+    background-color: #f4f4ec;
+    overflow: auto; }
     .product-listing .all-products:hover {
       border: 10px solid #2d767f; }
     .product-listing .all-products .productID {
@@ -131,7 +134,7 @@ main {
       .product-listing .single-product .productID :hover {
         color: #b4f1f1; }
 
-h2, h5 {
+h2, h4 {
   text-align: center; }
 
 #body-input {
@@ -142,11 +145,12 @@ h2, h5 {
   flex-direction: row;
   flex-wrap: wrap;
   text-align: start;
-  border: 1px solide gray; }
+  border: 1px solide gray;
+  font-size: 18px; }
 
 .form-content {
   width: 100%;
-  margin-top: 50px;
+  margin-top: 15px;
   margin-bottom: 100px;
   margin-left: auto;
   margin-right: auto;
@@ -160,6 +164,8 @@ h2, h5 {
     .form-content .new-error-handler .errorTitle {
       font-size: 40px;
       font-weight: 900; }
+    .form-content .new-error-handler .errorBody {
+      text-align: center; }
   .form-content .input-form {
     margin-left: auto;
     margin-right: auto;
@@ -173,19 +179,23 @@ h2, h5 {
         width: 100%;
         height: 30px;
         border-radius: 6px;
-        border: 1px solid gray; }
+        border: 1px solid gray;
+        font-size: 18px;
+        padding: 5px; }
       .form-content .input-form .form-group .form-control-product {
         width: 100%;
         height: 30px;
         margin-left: auto;
         margin-right: auto;
         border-radius: 6px;
-        border: 1px solid gray; }
+        border: 1px solid gray;
+        font-size: 18px;
+        padding: 5px; }
 
 body {
   margin: 0px;
   font-family: "Quicksand", sans-serif;
-  background-color: #ecfffb;
+  background-color: #eeeeee;
   color: #1e6262; }
 
 .add-new {

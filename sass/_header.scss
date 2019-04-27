@@ -1,12 +1,12 @@
 header {
   width: 100%;
   height: 5vw;
-  font-size: 45px;
+  font-size: 65px;
   font-weight: 900;
-  font-style: italic;
   display: flex;
   justify-content: center;
   flex-direction: row;
   align-items: center;
   margin: 2vw 0vw;
+  font-family: $header-font;
 }
