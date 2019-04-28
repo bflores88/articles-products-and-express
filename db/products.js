@@ -40,19 +40,19 @@ function addProduct(responseObject) {
 }
 
 function editProduct(id, responseObject) {
-  let productEdit = findProductByID(id);
+  let product = findProductByID(id);
 
   for (let key in responseObject) {
-    productEdit[key] = responseObject[key];
+    product[key] = responseObject[key];
   }
 
   return;
 }
 
 function deleteProduct (id) {
-  let productDelete = findProductByID(id);
-  let productDeleteIndex = products.indexOf(productDelete);
-  products.splice(productDeleteIndex, 1);
+  let product = findProductByID(id);
+  let productIndex = products.indexOf(product);
+  products.splice(productIndex, 1);
   return;
 }
 
