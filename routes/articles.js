@@ -16,7 +16,7 @@ router
       context.deleteMessage = `You've successfully deleted ${deletedArticle}!!`;
       deleted = false;
       deletedArticle = '';
-  
+
       res.render('layouts/articles/index', context);
     } else {
       deleted = false;
@@ -68,7 +68,6 @@ router.route('/new').get((req, res) => {
     res.render('layouts/articles/new', context);
     return;
   } else {
-
     res.render('layouts/articles/new');
     return;
   }
@@ -142,10 +141,6 @@ function checkInputKeys(responseObject) {
   } else {
     return false;
   }
-}
-
-function checkForTitle(responseObject) {
-  return responseObject.hasOwnProperty('title');
 }
 
 module.exports = router;
