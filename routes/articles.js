@@ -76,8 +76,8 @@ router.route('/new').get((req, res) => {
 router
   .route('/:title')
   .get((req, res) => {
+    error = false;
     let context = articles.findArticleByTitle(req.params.title);
-
     res.render('layouts/articles/article', context);
     return;
   })
@@ -85,13 +85,14 @@ router
     if (!checkInputKeys(req.body)) {
       error = true;
 
-      res.redirect(`articles/${req.params.title}`);
+      res.redirect(302, `/articles/${req.params.title}/edit`);
       return;
     }
-
+  
+    error = false;
     let editedArticle = articles.editArticle(req.params.title, req.body);
 
-    res.redirect(302, `articles/${editedArticle.title}`);
+    res.redirect(302, `/articles/${editedArticle.urlTitle}`);
     return;
   })
   .delete((req, res) => {
@@ -113,15 +114,17 @@ router.route('/:title/edit').get((req, res) => {
   let context = articles.findArticleByTitle(req.params.title);
 
   if (error) {
-    context.errorTitle = 'ERROR = Missing Information';
-    context.errorBody = 'Please ensure all fields are inputted before submitting.';
     error = false;
+    context.errorTitle = 'ERROR - Missing Information';
+    context.errorBody = 'Please ensure all fields are inputted before submitting.';
 
     res.render('layouts/articles/edit', context);
     return;
   } else {
+    error = false;
     context = articles.findArticleByTitle(req.params.title);
-
+    context.errorTitle = '';
+    context.errorBody = '';
     res.render('layouts/articles/edit', context);
     return;
   }
