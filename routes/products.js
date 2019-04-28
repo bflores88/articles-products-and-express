@@ -14,7 +14,7 @@ router
 
     if (deleted) {
       context.deleteMessage = `You've successfully deleted Product ID ${deletedID}!!`;
-      res.status(200);
+      
       res.render('layouts/products/index', context);
       deleted = false;
       deletedID = '';
@@ -22,7 +22,7 @@ router
     }
 
     context.deleteMessage = ``;
-    res.status(200);
+   
     res.render('layouts/products/index', context);
     return;
   })
@@ -49,7 +49,6 @@ router.route('/new').get((req, res) => {
     };
   }
 
-  res.status(200);
   res.render('layouts/products/new', context);
   error = false;
 });
@@ -59,7 +58,6 @@ router
   .get((req, res) => {
     let context = products.findProductByID(req.params.id);
 
-    res.status(200);
     res.render('layouts/products/product', context);
     return;
   })
@@ -98,7 +96,7 @@ router.route('/:id/edit').get((req, res) => {
     context.errorTitle = 'ERROR - Missing Information';
     context.errorBody = 'Please make sure all fields are filled out before clicking submit.';
     error = false;
-    res.status(200);
+ 
     res.render(`layouts/products/edit`, context);
     return;
   } else {
@@ -106,7 +104,7 @@ router.route('/:id/edit').get((req, res) => {
     context = products.findProductByID(req.params.id);
     context.errorTitle = '';
     context.errorBody = '';
-    res.status(200);
+   
     res.render(`layouts/products/edit`, context);
     return;
   }

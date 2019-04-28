@@ -16,13 +16,13 @@ router
       context.deleteMessage = `You've successfully deleted ${deletedArticle}!!`;
       deleted = false;
       deletedArticle = '';
-      res.status(200);
+  
       res.render('layouts/articles/index', context);
     } else {
       deleted = false;
       context = { article: articles.getAllArticles() };
       context.deleteMessage = ``;
-      res.status(200);
+
       res.render('layouts/articles/index', context);
       return;
     }
@@ -55,7 +55,7 @@ router.route('/new').get((req, res) => {
       errorTitle: 'ERROR - Missing Input',
       errorBody: 'Please ensure all fields are inputted before submitting.',
     };
-    res.status(200);
+
     res.render('layouts/articles/new', context);
     return;
   } else if (duplicate) {
@@ -64,11 +64,11 @@ router.route('/new').get((req, res) => {
       errorTitle: 'ERROR - Duplicate Title',
       errorBody: 'Please use a new, unique title.',
     };
-    res.status(200);
+
     res.render('layouts/articles/new', context);
     return;
   } else {
-    res.status(200);
+
     res.render('layouts/articles/new');
     return;
   }
@@ -106,7 +106,6 @@ router
 
     articles.deleteArticle(req.params.title, req.body.title);
 
-    res.status(200);
     res.redirect(302, '/articles');
     return;
   });
@@ -118,12 +117,12 @@ router.route('/:title/edit').get((req, res) => {
     context.errorTitle = 'ERROR = Missing Information';
     context.errorBody = 'Please ensure all fields are inputted before submitting.';
     error = false;
-    res.status(200);
+
     res.render('layouts/articles/edit', context);
     return;
   } else {
     context = articles.findArticleByTitle(req.params.title);
-    res.status(200);
+
     res.render('layouts/articles/edit', context);
     return;
   }
@@ -146,10 +145,7 @@ function checkInputKeys(responseObject) {
 }
 
 function checkForTitle(responseObject) {
-  if (responseObject.hasOwnProperty('title')) {
-    return true;
-  }
-  return false;
+  return responseObject.hasOwnProperty('title');
 }
 
 module.exports = router;
