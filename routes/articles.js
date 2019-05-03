@@ -11,9 +11,8 @@ let deletedArticle;
 router
   .route('/')
   .get((req, res) => {
-    knex
-      .select()
-      .from('articles')
+    knex('articles')
+      .orderBy('updated_at', 'desc')
       .then((articleObject) => {
         return articleObject;
       })
@@ -109,9 +108,10 @@ router
   .get((req, res) => {
     error = false;
 
-    knex('articles').where('title', req.params.title)
+    knex('articles')
+      .where('title', req.params.title)
       .then((articleObject) => {
-        if(articleObject.length === 0){
+        if (articleObject.length === 0) {
           doesNotExist = true;
 
           return res.redirect(302, '/articles/new');
@@ -122,7 +122,7 @@ router
       })
       .catch((err) => {
         return res.redirect(302, 'layouts/500');
-      })
+      });
   })
   .put((req, res) => {
     if (!checkInputKeys(req.body)) {
@@ -139,23 +139,23 @@ router
       .update({
         title: req.body.title,
         author: req.body.author,
-        body: req.body.body
+        body: req.body.body,
       })
       .then((urlTitle) => {
         return res.redirect(302, `/articles/${urlTitle}`);
       })
       .catch((err) => {
         return res.redirect(302, 'layouts/500');
-      })
+      });
   })
   .delete((req, res) => {
-
-    knex('articles').where('title', req.params.title)
+    knex('articles')
+      .where('title', req.params.title)
       .then((articleObject) => {
-        if(articleObject.length === 0){
+        if (articleObject.length === 0) {
           doesNotExist = true;
           return res.redirect(302, '/articles/new');
-        };
+        }
 
         return articleObject[0];
       })
@@ -163,22 +163,25 @@ router
         deleted = true;
         deletedArticle = article.title;
 
-        knex('articles').returning('title').where('title', article.title).del()
+        knex('articles')
+          .returning('title')
+          .where('title', article.title)
+          .del();
       })
       .then((title) => {
         return res.redirect(302, '/articles');
       })
       .catch((err) => {
-        return res.redirect(302, 'layouts/500')
-      })
+        return res.redirect(302, 'layouts/500');
+      });
   });
 
 router.route('/:title/edit').get((req, res) => {
-
-  knex('articles').where('title', req.params.title)
+  knex('articles')
+    .where('title', req.params.title)
     .then((articleObject) => {
       let context = articleObject;
- 
+
       if (error) {
         error = false;
         context = articleObject[0];
@@ -195,7 +198,7 @@ router.route('/:title/edit').get((req, res) => {
     })
     .catch((err) => {
       return res.redirect(302, 'layouts/500');
-    })
+    });
 });
 
 function checkInputKeys(responseObject) {
