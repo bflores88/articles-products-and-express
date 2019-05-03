@@ -5,6 +5,7 @@ const knex = require('../database');
 
 let error = false;
 let duplicate = false;
+let doesNotExist = false;
 let deleted = false;
 let deletedArticle;
 
@@ -46,11 +47,9 @@ router
       return res.redirect(302, '/articles/new');
     }
 
-    //check if article already exists
     knex('articles')
       .where('title', req.body.title)
       .then((result) => {
-        //article exists if result has length, redirect
         if (result.length !== 0) {
           duplicate = true;
           return res.redirect(302, '/articles/new');
@@ -84,8 +83,7 @@ router.route('/new').get((req, res) => {
       errorBody: 'Please ensure all fields are inputted before submitting.',
     };
 
-    res.render('layouts/articles/new', context);
-    return;
+    return res.render('layouts/articles/new', context);
   } else if (duplicate) {
     duplicate = false;
     let context = {
@@ -93,11 +91,17 @@ router.route('/new').get((req, res) => {
       errorBody: 'Please use a new, unique title.',
     };
 
-    res.render('layouts/articles/new', context);
-    return;
+    return res.render('layouts/articles/new', context);
+  } else if (doesNotExist) {
+    doesNotExist = false;
+    let context = {
+      errorTitle: 'ERROR - Article Does Not Exist!',
+      errorBody: 'Please look up a valid article or create new article.',
+    };
+
+    return res.render('layouts/articles/new', context);
   } else {
-    res.render('layouts/articles/new');
-    return;
+    return res.render('layouts/articles/new');
   }
 });
 
@@ -105,9 +109,22 @@ router
   .route('/:title')
   .get((req, res) => {
     error = false;
-    let context = articles.findArticleByTitle(req.params.title);
-    res.render('layouts/articles/article', context);
-    return;
+
+    knex('articles').where('title', req.params.title)
+      .then((articleObject) => {
+        //check if there is anything
+        if(articleObject.length === 0){
+          doesNotExist = true;
+
+          return res.redirect(302, '/articles/new');
+        }
+
+        let context = articleObject[0];
+        return res.render('layouts/articles/article', context);
+      })
+      .catch((err) => {
+        throw err;
+      })
   })
   .put((req, res) => {
     if (!checkInputKeys(req.body)) {
