@@ -1,7 +1,14 @@
-const articles = [];
+const knex = require('../database');
+
 
 function getAllArticles() {
-  return articles;
+  knex.select().from('articles')
+    .then((articleObject) => {
+      return articleObject
+    })
+    .catch((err) => {
+      throw err;
+    })
 }
 
 function createURLTitle(title) {

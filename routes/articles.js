@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const articles = require('../db/articles.js');
+const knex = require('../database');
 
 let error = false;
 let duplicate = false;
@@ -10,22 +11,48 @@ let deletedArticle;
 router
   .route('/')
   .get((req, res) => {
-    let context = { article: articles.getAllArticles() };
-    if (deleted) {
-      context = { article: articles.getAllArticles() };
-      context.deleteMessage = `You've successfully deleted ${deletedArticle}!!`;
-      deleted = false;
-      deletedArticle = '';
+    knex.select().from('articles')
+      .then((articleObject) => {
 
-      res.render('layouts/articles/index', context);
-    } else {
-      deleted = false;
-      context = { article: articles.getAllArticles() };
-      context.deleteMessage = ``;
+        return articleObject;
+      })
+      .then((result) => {
+        let context = { article: result};
 
-      res.render('layouts/articles/index', context);
-      return;
-    }
+        if (deleted) {
+          context = { article: result };
+          context.deleteMessage = `You've successfully deleted ${deletedArticle}!!`;
+          deleted = false;
+          deletedArticle = '';
+
+          return res.render('layouts/articles/index', context);
+        } else {
+          deleted = false;
+          context = { article: result };
+          context.deleteMessage = ``;
+
+          return res.render('layouts/articles/index', context);
+        }
+      })
+      .catch((err) => {
+        throw err;
+      })
+    // let context = { article: articles.getAllArticles() };
+    // if (deleted) {
+    //   context = { article: articles.getAllArticles() };
+    //   context.deleteMessage = `You've successfully deleted ${deletedArticle}!!`;
+    //   deleted = false;
+    //   deletedArticle = '';
+
+    //   res.render('layouts/articles/index', context);
+    // } else {
+    //   deleted = false;
+    //   context = { article: articles.getAllArticles() };
+    //   context.deleteMessage = ``;
+
+    //   res.render('layouts/articles/index', context);
+      // return;
+    // }
   })
   .post((req, res) => {
     if (!checkInputKeys(req.body)) {
