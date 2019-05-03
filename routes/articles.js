@@ -11,13 +11,14 @@ let deletedArticle;
 router
   .route('/')
   .get((req, res) => {
-    knex.select().from('articles')
+    knex
+      .select()
+      .from('articles')
       .then((articleObject) => {
-
         return articleObject;
       })
       .then((result) => {
-        let context = { article: result};
+        let context = { article: result };
 
         if (deleted) {
           context = { article: result };
@@ -36,43 +37,43 @@ router
       })
       .catch((err) => {
         throw err;
-      })
-    // let context = { article: articles.getAllArticles() };
-    // if (deleted) {
-    //   context = { article: articles.getAllArticles() };
-    //   context.deleteMessage = `You've successfully deleted ${deletedArticle}!!`;
-    //   deleted = false;
-    //   deletedArticle = '';
-
-    //   res.render('layouts/articles/index', context);
-    // } else {
-    //   deleted = false;
-    //   context = { article: articles.getAllArticles() };
-    //   context.deleteMessage = ``;
-
-    //   res.render('layouts/articles/index', context);
-      // return;
-    // }
+      });
   })
   .post((req, res) => {
     if (!checkInputKeys(req.body)) {
       error = true;
 
-      res.redirect(302, '/articles/new');
-      return;
+      return res.redirect(302, '/articles/new');
     }
 
-    if (articles.checkArticleExists(req.body.title)) {
-      duplicate = true;
+    //check if article already exists
+    knex('articles')
+      .where('title', req.body.title)
+      .then((result) => {
+        //article exists if result has length, redirect
+        if (result.length !== 0) {
+          duplicate = true;
+          return res.redirect(302, '/articles/new');
+        }
 
-      res.redirect(302, '/articles/new');
-      return;
-    }
-
-    articles.addArticle(req.body);
-
-    res.redirect(302, '/articles');
-    return;
+        return req.body;
+      })
+      .then((inputArticle) => {
+        return knex('articles')
+          .returning('title')
+          .insert({
+            title: inputArticle.title,
+            author: inputArticle.author,
+            body: inputArticle.body,
+            urlTitle: encodeURIComponent(inputArticle.title),
+          });
+      })
+      .then((returnedTitle) => {
+        return res.redirect(302, '/articles');
+      })
+      .catch((err) => {
+        throw err;
+      });
   });
 
 router.route('/new').get((req, res) => {
@@ -115,7 +116,7 @@ router
       res.redirect(302, `/articles/${req.params.title}/edit`);
       return;
     }
-  
+
     error = false;
     let editedArticle = articles.editArticle(req.params.title, req.body);
 
