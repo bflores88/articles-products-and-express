@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const articles = require('../db/articles.js');
 const knex = require('../database');
 
 let error = false;
@@ -150,18 +149,28 @@ router
       })
   })
   .delete((req, res) => {
-    if (!articles.findArticleByTitle(req.params.title)) {
-      res.redirect(302, `/articles/${req.params.title}/edit`);
-      return;
-    }
 
-    deleted = true;
-    deletedArticle = req.params.title;
+    knex('articles').where('title', req.params.title)
+      .then((articleObject) => {
+        if(articleObject.length === 0){
+          doesNotExist = true;
+          return res.redirect(302, '/articles/new');
+        };
 
-    articles.deleteArticle(req.params.title, req.body.title);
+        return articleObject[0];
+      })
+      .then((article) => {
+        deleted = true;
+        deletedArticle = article.title;
 
-    res.redirect(302, '/articles');
-    return;
+        knex('articles').returning('title').where('title', article.title).del()
+      })
+      .then((title) => {
+        return res.redirect(302, '/articles');
+      })
+      .catch((err) => {
+        return res.redirect(302, 'layouts/500')
+      })
   });
 
 router.route('/:title/edit').get((req, res) => {
