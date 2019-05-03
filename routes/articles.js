@@ -37,7 +37,7 @@ router
         }
       })
       .catch((err) => {
-        throw err;
+        return res.redirect(302, 'layouts/500');
       });
   })
   .post((req, res) => {
@@ -71,7 +71,7 @@ router
         return res.redirect(302, '/articles');
       })
       .catch((err) => {
-        throw err;
+        return res.redirect(302, 'layouts/500');
       });
   });
 
@@ -112,7 +112,6 @@ router
 
     knex('articles').where('title', req.params.title)
       .then((articleObject) => {
-        //check if there is anything
         if(articleObject.length === 0){
           doesNotExist = true;
 
@@ -123,22 +122,32 @@ router
         return res.render('layouts/articles/article', context);
       })
       .catch((err) => {
-        throw err;
+        return res.redirect(302, 'layouts/500');
       })
   })
   .put((req, res) => {
     if (!checkInputKeys(req.body)) {
       error = true;
 
-      res.redirect(302, `/articles/${req.params.title}/edit`);
-      return;
+      return res.redirect(302, `/articles/${req.params.title}/edit`);
     }
 
     error = false;
-    let editedArticle = articles.editArticle(req.params.title, req.body);
 
-    res.redirect(302, `/articles/${editedArticle.urlTitle}`);
-    return;
+    knex('articles')
+      .where('title', req.params.title)
+      .returning('urlTitle')
+      .update({
+        title: req.body.title,
+        author: req.body.author,
+        body: req.body.body
+      })
+      .then((urlTitle) => {
+        return res.redirect(302, `/articles/${urlTitle}`);
+      })
+      .catch((err) => {
+        return res.redirect(302, 'layouts/500');
+      })
   })
   .delete((req, res) => {
     if (!articles.findArticleByTitle(req.params.title)) {
@@ -156,23 +165,28 @@ router
   });
 
 router.route('/:title/edit').get((req, res) => {
-  let context = articles.findArticleByTitle(req.params.title);
 
-  if (error) {
-    error = false;
-    context.errorTitle = 'ERROR - Missing Information';
-    context.errorBody = 'Please ensure all fields are inputted before submitting.';
-
-    res.render('layouts/articles/edit', context);
-    return;
-  } else {
-    error = false;
-    context = articles.findArticleByTitle(req.params.title);
-    context.errorTitle = '';
-    context.errorBody = '';
-    res.render('layouts/articles/edit', context);
-    return;
-  }
+  knex('articles').where('title', req.params.title)
+    .then((articleObject) => {
+      let context = articleObject;
+ 
+      if (error) {
+        error = false;
+        context = articleObject[0];
+        context.errorTitle = 'ERROR - Missing Information';
+        context.errorBody = 'Please ensure all fields are inputted before submitting.';
+        return res.render('layouts/articles/edit', context);
+      } else {
+        error = false;
+        context = articleObject[0];
+        context.errorTitle = '';
+        context.errorBody = '';
+        return res.render('layouts/articles/edit', context);
+      }
+    })
+    .catch((err) => {
+      return res.redirect(302, 'layouts/500');
+    })
 });
 
 function checkInputKeys(responseObject) {
