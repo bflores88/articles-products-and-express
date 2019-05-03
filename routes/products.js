@@ -2,6 +2,7 @@ const express = require('express');
 const exphbs = require('express-handlebars');
 const router = express.Router();
 const products = require('../db/products.js');
+const knex = require('../database');
 
 let error = false;
 let deleted = false;
@@ -10,27 +11,27 @@ let deletedID;
 router
   .route('/')
   .get((req, res) => {
-    let context = { products: products.getAllProducts() };
 
-    if (deleted) {
-      context.deleteMessage = `You've successfully deleted Product ID ${deletedID}!!`;
-      
-      res.render('layouts/products/index', context);
-      deleted = false;
-      deletedID = '';
-      return;
-    }
+    knex('products').orderBy('id', 'asc')
+      .then((productsObject) => {
+        let context = { products: productsObject };
 
-    context.deleteMessage = ``;
-   
-    res.render('layouts/products/index', context);
-    return;
+        if (deleted) {
+          context.deleteMessage = `You've successfully deleted Product ID ${deletedID}!!`;
+          deleted = false;
+          deletedID = '';
+          
+          return res.render('layouts/products/index', context);
+        }
+    
+        context.deleteMessage = ``;
+        return res.render('layouts/products/index', context);
+      })
   })
   .post((req, res) => {
     if (!checkInputKeys(req.body)) {
       error = true;
-      res.redirect(302, '/products/new');
-      return;
+      return res.redirect(302, '/products/new');
     }
 
     error = false;
