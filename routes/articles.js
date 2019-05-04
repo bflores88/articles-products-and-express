@@ -24,15 +24,13 @@ router
           context.deleteMessage = `You've successfully deleted ${deletedArticle}!!`;
           deleted = false;
           deletedArticle = '';
-
-          return res.render('layouts/articles/index', context);
         } else {
           deleted = false;
           context = { article: result };
           context.deleteMessage = ``;
-
-          return res.render('layouts/articles/index', context);
         }
+
+        return res.render('layouts/articles/index', context);
       })
       .catch((err) => {
         return res.redirect(302, 'layouts/500');
