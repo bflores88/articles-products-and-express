@@ -57,7 +57,7 @@ router
             title: req.body.title,
             author: req.body.author,
             body: req.body.body,
-            urlTitle: encodeURIComponent(req.body.title),
+            urlTitle: encodeURIComponent(req.body.title)
           })
           .then((returnedTitle) => {
             return res.redirect(302, '/articles');
@@ -144,6 +144,7 @@ router
       });
   })
   .delete((req, res) => {
+    console.log(req.params.title);
     knex('articles')
       .where('title', req.params.title)
       .then((articleObject) => {
@@ -153,6 +154,7 @@ router
         }
 
         let article = articleObject[0];
+        console.log(article);
         deleted = true;
         deletedArticle = article.title;
 
