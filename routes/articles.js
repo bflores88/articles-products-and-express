@@ -144,7 +144,6 @@ router
       });
   })
   .delete((req, res) => {
-    console.log(req.params.title);
     knex('articles')
       .where('title', req.params.title)
       .then((articleObject) => {
@@ -153,8 +152,7 @@ router
           return res.redirect(302, '/articles/new');
         }
 
-        let article = articleObject[0];
-        console.log(article);
+        let article = articleObject[0]
         deleted = true;
         deletedArticle = article.title;
 
