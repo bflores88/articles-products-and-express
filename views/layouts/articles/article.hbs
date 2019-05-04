@@ -3,7 +3,10 @@
 
 <div class="article">
   <div class="title">{{title}}</div>
-  <div class="author">By:&nbsp;{{author}}</div><br>
+  <div class="author">
+    <p>By:&nbsp;{{author}}</p>
+    <p>Last Updated:&nbsp;{{updated_at}}</p>
+    </div><br>
   <div class="url"><a class="url" href="/articles/{{urlTitle}}/edit"><i class="fas fa-user-edit"></i>&nbsp;Edit Article</a></div>
   <section class="article-body">
     {{body}}

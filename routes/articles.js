@@ -17,16 +17,18 @@ router
         return articleObject;
       })
       .then((result) => {
+        result.forEach((singleArticleObject) => {
+          singleArticleObject.updated_at = singleArticleObject.updated_at.toLocaleString();
+        })
+
         let context = { article: result };
 
         if (deleted) {
-          context = { article: result };
           context.deleteMessage = `You've successfully deleted ${deletedArticle}!!`;
           deleted = false;
           deletedArticle = '';
         } else {
           deleted = false;
-          context = { article: result };
           context.deleteMessage = ``;
         }
 
@@ -113,6 +115,7 @@ router
         }
 
         let context = articleObject[0];
+        context.updated_at = context.updated_at.toLocaleString();
         return res.render('layouts/articles/article', context);
       })
       .catch((err) => {

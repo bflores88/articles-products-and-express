@@ -13,7 +13,10 @@
 {{#each article}}
 <div class="article all-articles">
   <div class="title"><a class="titleLink" href="/articles/{{urlTitle}}">{{title}}</a></div>
-  <div class="author">By:&nbsp;{{author}}</div>
+  <div class="author">
+    <p>By:&nbsp;{{author}}</p>
+    <p>Last Updated:&nbsp;{{updated_at}}</p>
+    </div>
   <br>
   <div class="url"><a class="url" href="/articles/{{urlTitle}}/edit"><i class="fas fa-user-edit"></i>&nbsp;Edit Article</a></div>
   <section class="article-body">
