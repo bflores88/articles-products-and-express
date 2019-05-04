@@ -11,8 +11,8 @@ let deletedID;
 router
   .route('/')
   .get((req, res) => {
-
-    knex('products').orderBy('id', 'asc')
+    knex('products')
+      .orderBy('id', 'asc')
       .then((productsObject) => {
         let context = { products: productsObject };
 
@@ -20,13 +20,16 @@ router
           context.deleteMessage = `You've successfully deleted Product ID ${deletedID}!!`;
           deleted = false;
           deletedID = '';
-          
+
           return res.render('layouts/products/index', context);
         }
-    
+
         context.deleteMessage = ``;
         return res.render('layouts/products/index', context);
       })
+      .catch((err) => {
+        return res.redirect(302, 'layouts/500');
+      });
   })
   .post((req, res) => {
     if (!checkInputKeys(req.body)) {
@@ -35,9 +38,20 @@ router
     }
 
     error = false;
-    products.addProduct(req.body);
-    res.redirect(302, '/products');
-    return;
+
+    knex('products')
+      .returning()
+      .insert({
+        name: req.body.name,
+        price: parseFloat(req.body.price).toFixed(2),
+        inventory: req.body.inventory,
+      })
+      .then((returnResult) => {
+        return res.redirect(302, '/products');
+      })
+      .catch((err) => {
+        return res.redirect(302, 'layouts/500');
+      });
   });
 
 router.route('/new').get((req, res) => {
@@ -50,29 +64,45 @@ router.route('/new').get((req, res) => {
     };
   }
 
-  res.render('layouts/products/new', context);
   error = false;
+  return res.render('layouts/products/new', context);
 });
 
 router
   .route('/:id')
   .get((req, res) => {
-    let context = products.findProductByID(req.params.id);
-
-    res.render('layouts/products/product', context);
-    return;
+    knex('products')
+      .where('id', req.params.id)
+      .then((productObject) => {
+        let context = productObject[0];
+        return res.render('layouts/products/product', context);
+      })
+      .catch((err) => {
+        return res.redirect(302, 'layouts/500');
+      });
   })
   .put((req, res) => {
     if (!checkInputKeys(req.body)) {
       error = true;
-      res.redirect(302, `/products/${req.params.id}/edit`);
-      return;
+      return res.redirect(302, `/products/${req.params.id}/edit`);
     }
 
     error = false;
-    products.editProduct(req.params.id, req.body);
-    res.redirect(302, `/products/${req.params.id}`);
-    return;
+
+    knex('products')
+      .returning('id')
+      .where('id', req.params.id)
+      .update({
+        name: req.body.name,
+        price: parseFloat(req.body.price).toFixed(2),
+        inventory: req.body.inventory,
+      })
+      .then((returnID) => {
+        return res.redirect(302, `/products/${returnID}`);
+      })
+      .catch((err) => {
+        return res.redirect(302, 'layouts/500');
+      });
   })
   .delete((req, res) => {
     if (!products.checkID(req.params.id)) {
@@ -82,33 +112,42 @@ router
     }
 
     error = false;
-    products.deleteProduct(req.params.id);
     deleted = true;
     deletedID = req.params.id;
 
-    res.redirect(302, '/products');
-    return;
+    knex('products')
+      .returning()
+      .where('id', req.params.id)
+      .del()
+      .then((returnResult) => {
+        return res.redirect(302, '/products');
+      })
+      .catch((err) => {
+        return res.redirect(302, 'layouts/500');
+      });
   });
 
 router.route('/:id/edit').get((req, res) => {
-  let context = products.findProductByID(req.params.id);
+  knex('products')
+    .where('id', req.params.id)
+    .then((productBody) => {
+      let context = productBody[0];
 
-  if (error) {
-    context.errorTitle = 'ERROR - Missing Information';
-    context.errorBody = 'Please make sure all fields are filled out before clicking submit.';
-    error = false;
- 
-    res.render(`layouts/products/edit`, context);
-    return;
-  } else {
-    error = false;
-    context = products.findProductByID(req.params.id);
-    context.errorTitle = '';
-    context.errorBody = '';
-   
-    res.render(`layouts/products/edit`, context);
-    return;
-  }
+      if (error) {
+        error = false;
+        context.errorTitle = 'ERROR - Missing Information';
+        context.errorBody = 'Please make sure all fields are filled out before clicking submit.';
+
+        return res.render(`layouts/products/edit`, context);
+      } else {
+        error = false;
+        context = productBody[0];
+        context.errorTitle = '';
+        context.errorBody = '';
+
+        return res.render(`layouts/products/edit`, context);
+      }
+    });
 });
 
 function checkInputKeys(responseObject) {
