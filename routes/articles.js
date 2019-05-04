@@ -53,20 +53,17 @@ router
           return res.redirect(302, '/articles/new');
         }
 
-        return req.body;
-      })
-      .then((inputArticle) => {
         return knex('articles')
           .returning('title')
           .insert({
-            title: inputArticle.title,
-            author: inputArticle.author,
-            body: inputArticle.body,
-            urlTitle: encodeURIComponent(inputArticle.title),
+            title: req.body.title,
+            author: req.body.author,
+            body: req.body.body,
+            urlTitle: encodeURIComponent(req.body.title),
+          })
+          .then((returnedTitle) => {
+            return res.redirect(302, '/articles');
           });
-      })
-      .then((returnedTitle) => {
-        return res.redirect(302, '/articles');
       })
       .catch((err) => {
         return res.redirect(302, 'layouts/500');
@@ -157,19 +154,17 @@ router
           return res.redirect(302, '/articles/new');
         }
 
-        return articleObject[0];
-      })
-      .then((article) => {
+        let article = articleObject[0];
         deleted = true;
         deletedArticle = article.title;
 
-        knex('articles')
+        return knex('articles')
           .returning('title')
           .where('title', article.title)
-          .del();
-      })
-      .then((title) => {
-        return res.redirect(302, '/articles');
+          .del()
+          .then((title) => {
+            return res.redirect(302, '/articles');
+          });
       })
       .catch((err) => {
         return res.redirect(302, 'layouts/500');

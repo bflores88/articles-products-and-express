@@ -1,7 +1,6 @@
 const express = require('express');
 const exphbs = require('express-handlebars');
 const router = express.Router();
-const products = require('../db/products.js');
 const knex = require('../database');
 
 let error = false;
@@ -105,22 +104,24 @@ router
       });
   })
   .delete((req, res) => {
-    if (!products.checkID(req.params.id)) {
-      error = true;
-      res.redirect(302, `/products/${req.params.id}`);
-      return;
-    }
-
-    error = false;
-    deleted = true;
-    deletedID = req.params.id;
-
     knex('products')
-      .returning()
       .where('id', req.params.id)
-      .del()
-      .then((returnResult) => {
-        return res.redirect(302, '/products');
+      .then((productObject) => {
+        if (productObject.length === 0) {
+          error = true;
+          return res.redirect(302, `/products/${req.params.id}`);
+        }
+
+        error = false;
+        deleted = true;
+        deletedID = req.params.id;
+        return knex('products')
+          .returning()
+          .where('id', req.params.id)
+          .del()
+          .then((returnResult) => {
+            return res.redirect(302, '/products');
+          });
       })
       .catch((err) => {
         return res.redirect(302, 'layouts/500');
