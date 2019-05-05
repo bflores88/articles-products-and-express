@@ -12,40 +12,31 @@ router
   .get((req, res) => {
     let context = { article: articles.getAllArticles() };
     if (deleted) {
-      context = { article: articles.getAllArticles() };
-      context.deleteMessage = `You've successfully deleted ${deletedArticle}!!`;
       deleted = false;
+      context.deleteMessage = `You've successfully deleted ${deletedArticle}!!`;
       deletedArticle = '';
-
-      res.render('layouts/articles/index', context);
     } else {
       deleted = false;
-      context = { article: articles.getAllArticles() };
       context.deleteMessage = ``;
-
-      res.render('layouts/articles/index', context);
-      return;
     }
+    return res.render('layouts/articles/index', context);
   })
   .post((req, res) => {
     if (!checkInputKeys(req.body)) {
       error = true;
 
-      res.redirect(302, '/articles/new');
-      return;
+      return res.redirect(302, '/articles/new');
     }
 
     if (articles.checkArticleExists(req.body.title)) {
       duplicate = true;
 
-      res.redirect(302, '/articles/new');
-      return;
+      return res.redirect(302, '/articles/new');
     }
 
     articles.addArticle(req.body);
 
-    res.redirect(302, '/articles');
-    return;
+    return res.redirect(302, '/articles');
   });
 
 router.route('/new').get((req, res) => {
@@ -56,8 +47,7 @@ router.route('/new').get((req, res) => {
       errorBody: 'Please ensure all fields are inputted before submitting.',
     };
 
-    res.render('layouts/articles/new', context);
-    return;
+    return res.render('layouts/articles/new', context);
   } else if (duplicate) {
     duplicate = false;
     let context = {
@@ -65,11 +55,9 @@ router.route('/new').get((req, res) => {
       errorBody: 'Please use a new, unique title.',
     };
 
-    res.render('layouts/articles/new', context);
-    return;
+    return res.render('layouts/articles/new', context);
   } else {
-    res.render('layouts/articles/new');
-    return;
+    return res.render('layouts/articles/new');
   }
 });
 
@@ -78,27 +66,23 @@ router
   .get((req, res) => {
     error = false;
     let context = articles.findArticleByTitle(req.params.title);
-    res.render('layouts/articles/article', context);
-    return;
+    return res.render('layouts/articles/article', context);
   })
   .put((req, res) => {
     if (!checkInputKeys(req.body)) {
       error = true;
 
-      res.redirect(302, `/articles/${req.params.title}/edit`);
-      return;
+      return res.redirect(302, `/articles/${req.params.title}/edit`);
     }
-  
+
     error = false;
     let editedArticle = articles.editArticle(req.params.title, req.body);
 
-    res.redirect(302, `/articles/${editedArticle.urlTitle}`);
-    return;
+    return res.redirect(302, `/articles/${editedArticle.urlTitle}`);
   })
   .delete((req, res) => {
     if (!articles.findArticleByTitle(req.params.title)) {
-      res.redirect(302, `/articles/${req.params.title}/edit`);
-      return;
+      return res.redirect(302, `/articles/${req.params.title}/edit`);
     }
 
     deleted = true;
@@ -106,8 +90,7 @@ router
 
     articles.deleteArticle(req.params.title, req.body.title);
 
-    res.redirect(302, '/articles');
-    return;
+    return res.redirect(302, '/articles');
   });
 
 router.route('/:title/edit').get((req, res) => {
@@ -117,17 +100,12 @@ router.route('/:title/edit').get((req, res) => {
     error = false;
     context.errorTitle = 'ERROR - Missing Information';
     context.errorBody = 'Please ensure all fields are inputted before submitting.';
-
-    res.render('layouts/articles/edit', context);
-    return;
   } else {
     error = false;
-    context = articles.findArticleByTitle(req.params.title);
     context.errorTitle = '';
     context.errorBody = '';
-    res.render('layouts/articles/edit', context);
-    return;
   }
+  return res.render('layouts/articles/edit', context);
 });
 
 function checkInputKeys(responseObject) {
