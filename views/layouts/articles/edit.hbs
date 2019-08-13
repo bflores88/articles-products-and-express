@@ -9,7 +9,7 @@
 
   <section class="input-form">
 
-    <form action="/articles/{{title}}?_method=PUT" method="post" role="form"
+    <form action="/articles/{{urlTitle}}?_method=PUT" method="post" role="form"
       enctype="application/x-www-form-urlencoded">
       <h2>Edit Article Form</h2>
 
@@ -40,7 +40,7 @@
     <br>
 
     <div class="buttonDiv">
-       <form action="/articles/{{title}}?_method=DELETE" method="post" role="form"
+       <form action="/articles/{{urlTitle}}?_method=DELETE" method="post" role="form"
       enctype="application/x-www-form-urlencoded">
       <div>Delete Article?</div>
       <button type="submit" class="btn-submit" value="OK">Delete</button>
