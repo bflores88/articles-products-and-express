@@ -6,9 +6,9 @@
 
 ![articles](./screenshots/articles.png 'articles page')
 
-![mobile-home](./screenshots/resp-home.png 'responsive-home-page')
+<img src="./screenshots/resp-home.png" alt="responsive-home-page" width="250">
 
-![mobile-add-article](./screenshots/resp-add.png 'responsive-add-article')
+<img src="./screenshots/resp-add.png" alt="responsive-add-article" width="250">
 
 ## Tests
 
