@@ -1,0 +1,293 @@
+header {
+  width: 100%;
+  min-height: 75px;
+  height: 5vw;
+  font-size: 40px;
+  font-weight: 900;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  align-items: center;
+  margin: 2vw 0vw;
+  font-family: "Poiret One", cursive; }
+
+@media screen and (min-width: 420px) {
+  header {
+    font-size: 65px; } }
+
+.nav-bar {
+  width: 100%;
+  background-color: black;
+  border-bottom: 4px double #2d767f;
+  border-top: 4px double #2d767f;
+  padding-top: 0.5vw;
+  padding-bottom: 0.5vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  position: sticky;
+  top: 0; }
+  .nav-bar .nav-link {
+    text-decoration: none;
+    color: #f60c86; }
+  .nav-bar :hover {
+    color: #b4f1f1; }
+
+footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 1.5vw;
+  font-size: 12px;
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  border-top: 5px double black;
+  background-color: black;
+  color: #2d767f; }
+
+#main-home {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  text-align: center;
+  margin-top: 50px;
+  background-image: url("/assets/working-from-home.jpg");
+  background-size: cover;
+  height: 100%;
+  width: 100%; }
+  #main-home .home-content {
+    background-color: rgba(245, 239, 239, 0.9);
+    padding: 10px;
+    border-radius: 2px;
+    margin: 5%; }
+  #main-home .welcome {
+    color: #2d767f;
+    font-family: "Poiret One", cursive;
+    font-size: 50px;
+    font-weight: 900; }
+  #main-home .introduction {
+    margin: 20px;
+    font-size: 20px; }
+  #main-home .home-add {
+    width: 100%;
+    height: 75px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center; }
+
+.article-nav {
+  margin: 0px;
+  background-image: url("/assets/writing-sationary.jpg");
+  background-size: cover; }
+  .article-nav .nav-link {
+    background-color: white;
+    opacity: 1;
+    border-radius: 12px;
+    padding: 10px 25px; }
+
+main {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  margin-bottom: 100px; }
+  main .article {
+    width: 80%;
+    padding: 3vw 3vw; }
+  main .all-articles {
+    border-bottom: 4px double black; }
+  main .title {
+    font-family: "Poiret One", cursive;
+    font-weight: 900;
+    font-size: 50px;
+    text-align: center;
+    margin: 10px; }
+  main .author {
+    margin: 20px 0px 10px 0px;
+    text-align: center; }
+  main .url {
+    font-size: 16px;
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    color: #f60c86; }
+    main .url :hover {
+      text-emphasis: italic;
+      color: #b4f1f1; }
+  main .body {
+    margin-top: 20px; }
+
+.product-nav {
+  margin: 0px;
+  background-image: url("/assets/pool-floaty-fun.jpg");
+  background-size: cover; }
+  .product-nav .nav-link {
+    background-color: white;
+    opacity: 1;
+    border-radius: 12px;
+    padding: 10px 25px; }
+
+.product-listing {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 100px; }
+  .product-listing .all-products {
+    margin: 10px 15px;
+    border: 3px solid black;
+    padding: 20px;
+    min-width: 150px;
+    width: 15vw;
+    min-height: 250px;
+    height: 20vw;
+    background-color: white;
+    overflow: auto; }
+    .product-listing .all-products:hover {
+      border: 10px solid #2d767f; }
+    .product-listing .all-products .headerText {
+      font-size: 30px; }
+    .product-listing .all-products .productID {
+      font-size: 18px; }
+      .product-listing .all-products .productID a {
+        text-decoration: none;
+        color: #f60c86;
+        font-weight: 900; }
+      .product-listing .all-products .productID :hover {
+        color: #b4f1f1; }
+  @media screen and (max-width: 600px) {
+    .product-listing h1 {
+      font-size: initial; }
+    .product-listing .all-products {
+      width: 60vw; } }
+  .product-listing .single-product {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5vw;
+    text-align: center; }
+    .product-listing .single-product .productID {
+      font-size: 18px;
+      color: #f60c86; }
+      .product-listing .single-product .productID a {
+        text-decoration: none;
+        color: #f60c86;
+        font-weight: 900; }
+      .product-listing .single-product .productID :hover {
+        color: #b4f1f1; }
+
+h2, h4 {
+  text-align: center; }
+
+#body-input {
+  height: 275px;
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: row;
+  flex-wrap: wrap;
+  text-align: start;
+  border: 1px solide gray;
+  font-size: 18px; }
+
+.form-content {
+  width: 100%;
+  margin-bottom: 100px;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  justify-content: center;
+  flex-direction: column; }
+  .form-content .new-error-handler {
+    margin-left: auto;
+    margin-right: auto;
+    color: red; }
+    .form-content .new-error-handler .errorTitle {
+      font-size: 40px;
+      font-weight: 900; }
+    .form-content .new-error-handler .errorBody {
+      text-align: center; }
+  .form-content .input-form {
+    margin-left: auto;
+    margin-right: auto;
+    width: 70%; }
+    .form-content .input-form label {
+      display: block;
+      padding: 5px; }
+    .form-content .input-form .form-group {
+      margin: 1vw; }
+      .form-content .input-form .form-group .form-control {
+        width: 100%;
+        height: 30px;
+        border-radius: 6px;
+        border: 1px solid gray;
+        font-size: 18px;
+        padding: 5px; }
+      .form-content .input-form .form-group .form-control-product {
+        width: 100%;
+        height: 30px;
+        margin-left: auto;
+        margin-right: auto;
+        border-radius: 6px;
+        border: 1px solid gray;
+        font-size: 18px;
+        padding: 5px; }
+
+body {
+  margin: 0px;
+  font-family: "Quicksand", sans-serif;
+  background-color: #eeeeee;
+  color: #1e6262; }
+
+.add-new {
+  text-decoration: none;
+  font-size: 25px;
+  color: #f60c86;
+  font-weight: bolder; }
+  .add-new:hover {
+    text-decoration: blink;
+    color: #b4f1f1; }
+
+.buttonDiv {
+  text-align: center; }
+  .buttonDiv button {
+    background-color: #f60c86;
+    font-family: "Questrial", sans-serif;
+    border: none;
+    color: #b4f1f1;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 3px; }
+    .buttonDiv button:hover {
+      background-color: #2d767f; }
+
+h1 {
+  margin: 0px; }
+  h1 .headerText {
+    font-family: "Poiret One", cursive;
+    font-size: 6vw;
+    margin: 10px 0px; }
+
+.nav-to-new {
+  width: 100%;
+  height: 20vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center; }
+
+.titleLink {
+  text-decoration: none;
+  color: #f60c86; }
+  .titleLink:hover {
+    color: #b4f1f1; }

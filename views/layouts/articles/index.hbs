@@ -1,0 +1,24 @@
+
+<div class="article-nav nav-to-new">
+  <div class="nav-link">
+    <a class="add-new" href="/articles/new"><i class="fas fa-pencil-alt"></i>&nbsp;Add New Article</a>
+  </div>
+</div>
+
+<section class="delete-success">
+  <h2>{{deleteMessage}}</h2>
+</section>
+
+<main>
+{{#each article}}
+<div class="article all-articles">
+  <div class="title"><a class="titleLink" href="/articles/{{urlTitle}}">{{title}}</a></div>
+  <div class="author">By:&nbsp;{{author}}</div>
+  <br>
+  <div class="url"><a class="url" href="/articles/{{urlTitle}}/edit"><i class="fas fa-user-edit"></i>&nbsp;Edit Article</a></div>
+  <section class="body">
+    {{body}}
+  </section>
+</div>
+{{/each}}
+</main>

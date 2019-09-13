@@ -1,0 +1,82 @@
+.product-nav {
+  margin: 0px;
+  background-image: url('/assets/pool-floaty-fun.jpg');
+  background-size: cover;
+
+  .nav-link {
+    background-color: white;
+    opacity: 1;
+    border-radius: 12px;
+    padding: 10px 25px;
+  }
+}
+
+.product-listing {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 100px;
+
+  .all-products {
+    margin: 10px 15px;
+    border: 3px solid black;
+    padding: 20px;
+    min-width: 150px;
+    width: 15vw;
+    min-height: 250px;
+    height: 20vw;
+    background-color: white;
+    overflow: auto;
+    &:hover {
+      border: 10px solid $header-color;
+    }
+
+    .headerText {
+      font-size: 30px;
+    }
+
+    .productID {
+      font-size: 18px;
+      a {
+        text-decoration: none;
+        color: $link-color;
+        font-weight: 900;
+      }
+      :hover {
+        color: $link-hover;
+      }
+    }
+  }
+
+  @media screen and (max-width: 600px) {
+    h1 {
+      font-size: initial;
+    }
+    .all-products {
+      width: 60vw;
+    }
+  }
+
+  .single-product {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5vw;
+    text-align: center;
+
+    .productID {
+      font-size: 18px;
+      color: $link-color;
+      a {
+        text-decoration: none;
+        color: $link-color;
+        font-weight: 900;
+      }
+      :hover {
+        color: $link-hover;
+      }
+    }
+  }
+}

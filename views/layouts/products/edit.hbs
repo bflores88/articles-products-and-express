@@ -1,0 +1,53 @@
+<div class="form-content">
+
+  <section class="new-error-handler">
+    <div>
+      <h3 class="errorTitle">{{errorTitle}}</h3>
+      <p class="errorBody">{{errorBody}}</p>
+    </div>
+  </section>
+
+  <section class="input-form">
+
+    <form action="/products/{{id}}?_method=PUT" method="post" role="form" enctype="application/x-www-form-urlencoded">
+      <h2>Edit Product Form</h2>
+
+      <h4>Product ID: &nbsp;{{id}}</h4>
+
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" class="form-control-product" name="name" value="{{name}}">
+      </div>
+
+      <div class="form-group">
+        <label for="price">Price</label>
+        <input type="number"  min="0.00" step="0.01" class="form-control-product" name="price" value="{{price}}">
+      </div>
+
+      <div class="form-group">
+        <label for="inventory">Inventory</label>
+        <input type="number" class="form-control-product" name="inventory" value="{{inventory}}">
+      </div>
+
+      <div class="buttonDiv">
+        <button type="submit" class="btn-submit" value="OK">Submit</button>
+      </div>
+      
+    </form>
+
+    <br>
+    <br>
+
+    <div class="buttonDiv">
+      
+       <form action="/products/{{id}}?_method=DELETE" method="post" role="form"
+      enctype="application/x-www-form-urlencoded">
+      <div>Delete Product?</div>
+      <button type="submit" class="btn-submit" value="OK">Delete</button>
+    </form>
+
+    </div>
+
+  </section>
+
+</div>

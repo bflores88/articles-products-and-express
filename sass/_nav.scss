@@ -1,0 +1,21 @@
+.nav-bar {
+  width: 100%;
+  background-color: black;
+  border-bottom: 4px double $header-color;
+  border-top: 4px double $header-color;
+  padding-top: 0.5vw;
+  padding-bottom: 0.5vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  position: sticky;
+  top: 0;
+
+  .nav-link {
+    text-decoration: none;
+    color: $link-color;
+  }
+    :hover{
+      color: $link-hover;
+    }
+}
